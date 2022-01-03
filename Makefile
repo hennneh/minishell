@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+         #
+#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/03 14:56:41 by hlehmann         ###   ########.fr        #
+#    Updated: 2022/01/03 16:31:15 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,17 @@ NAME = minishell
 
 LFT = libft/
 
+SRC = main.c \
+
 CC = gcc
 
 CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
+
+$(NAME): $(SRC)
+	make -C libft/
+	$(CC) $(CFLAGS) $(SRC) $(LIBFT)libft.a -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
