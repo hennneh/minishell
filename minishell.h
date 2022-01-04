@@ -25,6 +25,8 @@
 # include <string.h> // strerror
 # include <termios.h> // tcsetattr, tcgetattr
 # include <curses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
+# include <readline/readline.h>
+# include <readline/history.h>
 
 /*
 **FUNCTIONS
