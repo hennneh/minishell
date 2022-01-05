@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
+/*   Updated: 2022/01/05 11:26:57 by vheymans         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -32,6 +44,16 @@
 **FUNCTIONS
 */
 
-int	shell(void);
+/*
+**MAIN
+*/
+
+int		shell(void);
+
+/*
+**UTILIES
+*/
+
+char	**get_path(char **path);
 
 #endif
