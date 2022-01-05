@@ -1,0 +1,78 @@
+Things we need
+	-MONEY ;)
+	- global variable (?the command?)/ all the things that need to be freed/ struct or list that holds all ENV($) variables
+
+
+CMDS CODE
+	-ECHO
+		- "-n"
+	-CD
+	-PWD 
+	-EXPORT
+	-UNSET
+	-ENV
+	-EXIT
+	-$?
+	-CTRL
+		-C
+		-D
+		-\
+	
+
+LAUNCH SHELL
+	- Only one Argument
+	- launch SHELL
+
+READ INPUT
+	-Error handling
+		- '\''
+		- ';'
+		- dont ?interpret? unlcosed quotes ?(%2 == 0)?
+		- other unspecified special chars
+	-Get prompt for readline (location)
+	-
+
+ANALYZE INPUT
+	-Working History
+	-Number of args/cmds
+		-find all paths
+		-find correct launch path for each arg/cmd
+	
+
+EXECUTE INPUT
+
+
+END SHELL
+	-
+
+
+CMD SEPERATORS
+	- |
+	- <
+	- >
+	- >>
+	- <<
+
+typedef struct s_shell
+{
+	char **history;
+	int n_cmds;
+	char *location;
+	t_cmd *cmds;
+	t_var *var;
+}	t_shell;
+
+typedef struct s_cmd
+{
+	int fd[2]; (input and output)
+	int append_flag;
+	char *path_cmd; (includes exe path + cmd)
+	char **cmd_args;
+}	t_cmd;
+
+typedef struct s_var
+{
+	char *name;
+	void *value;
+	t_var next;
+}	t_var;
