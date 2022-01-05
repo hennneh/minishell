@@ -6,7 +6,7 @@
 #    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/03 16:31:15 by vheymans         ###   ########.fr        #
+#    Updated: 2022/01/05 11:22:04 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = minishell
 
 LFT = libft/
 
-SRC = main.c \
+SRC =	main.c \
+		util/path.c \
 
 CC = gcc
 
@@ -24,7 +25,7 @@ all: $(NAME)
 
 $(NAME): $(SRC)
 	make -C libft/
-	$(CC) $(CFLAGS) $(SRC) $(LIBFT)libft.a -o $(NAME)
+	$(CC) $(CFLAGS) $(SRC) $(LFT)libft.a -o $(NAME)
 
 clean:
 	rm -rf $(OBJ)
