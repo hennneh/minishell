@@ -1,52 +1,52 @@
 Things we need
 	-MONEY ;)
-	- global variable (?the command?)/ all the things that need to be freed/ struct or list that holds all ENV($) variables
+	- global variable == error value for $? 
 
 
 CMDS CODE
-	-ECHO
+	-ECHO							Kostas
 		- "-n"
-	-CD
-	-PWD 
-	-EXPORT
-	-UNSET
-	-ENV
-	-EXIT
-	-$?
-	-CTRL
-		-C
+	-CD								Hendrik
+	-PWD							Hendrik
+	-EXPORT							Hamster
+	-UNSET							Hamster
+	-ENV							Hamster
+	-EXIT							Hamster
+	-$?								Hamster
+	-CTRL							Hendrik
+		-C	(newline)				
 		-D
 		-\
 	
 
-LAUNCH SHELL
+LAUNCH SHELL						ALL
 	- Only one Argument
 	- launch SHELL
 
-READ INPUT
-	-Error handling
+READ INPUT												Vincent
+	-Error handling										Hamster
 		- '\''
 		- ';'
 		- dont ?interpret? unlcosed quotes ?(%2 == 0)?
 		- other unspecified special chars
-	-Get prompt for readline (location)
+	-Get prompt for readline (location)					Hendrik(pwd)
 	-
 
-ANALYZE INPUT
-	-Working History
-	-Number of args/cmds
-		-find all paths
-		-find correct launch path for each arg/cmd
+ANALYZE INPUT											Vincent
+	-Working History									Hendrik
+	-Number of args/cmds								Vincent
+		-find all paths									Vincent/Kostas
+		-find correct launch path for each arg/cmd		Vincent/Kostas
 	
 
-EXECUTE INPUT
+EXECUTE INPUT										Kostas
 
 
 END SHELL
-	-
+	- freeing									Hamster
+	- exit										Hamster/ALL
 
-
-CMD SEPERATORS
+CMD SEPERATORS									Kostas
 	- |
 	- <
 	- >
@@ -55,11 +55,11 @@ CMD SEPERATORS
 
 typedef struct s_shell
 {
-	char **history;
+	char **env;
+	t_lst *his;
 	int n_cmds;
-	char *location;
+	char *pwd;
 	t_cmd *cmds;
-	t_var *var;
 }	t_shell;
 
 typedef struct s_cmd
@@ -69,10 +69,3 @@ typedef struct s_cmd
 	char *path_cmd; (includes exe path + cmd)
 	char **cmd_args;
 }	t_cmd;
-
-typedef struct s_var
-{
-	char *name;
-	void *value;
-	t_var next;
-}	t_var;
