@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/07 11:17:21 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/07 13:45:05 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 # define MINISHELL_H
 
 /*
-**LIBRARY
+**	LIBRARY
 */
 
 # include "libft/libft.h"
 
 /*
-**INCLUDES
+**	INCLUDES
 */
 
 # include <stdio.h> // readline, printf
@@ -41,17 +41,52 @@
 # include <readline/history.h>
 
 /*
-**FUNCTIONS
+**	STRUCTS
+*/
+
+typedef struct s_cmd	t_shell;
+
+/*
+** env == enviroment; his == history; n_cmds == # of cmds;
+** pwd = print(present)_working_dir; ** cmds == holds all the cmds;
+** input = output from readline;
+*/
+
+typedef struct s_shell
+{
+	char	**env;
+	t_lst	*his;
+	int		n_cmds;
+	char	*pwd;
+	t_cmd	*cmds;
+	char	*input;
+}	t_shell;
+
+/*
+**fd == contains input and output fd; append_flag == if it needs to be appended;
+**path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
+*/
+
+typedef struct s_cmd
+{
+	int		fd[2];
+	int		append_flag;
+	char	*path_cmd;
+	char	**cmd_args;
+}	t_cmd;
+
+/*
+**	FUNCTIONS
 */
 
 /*
-**MAIN
+**	MAIN
 */
 
-int		shell(void);
+int		shell(char **env);
 
 /*
-**UTILIES
+**	UTILIES
 */
 
 char	**get_path(char **path);
