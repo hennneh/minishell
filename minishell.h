@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
+/*   Updated: 2022/01/07 11:17:21 by vheymans         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -26,11 +38,22 @@
 # include <termios.h> // tcsetattr, tcgetattr
 # include <curses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 # include <readline/readline.h>
+# include <readline/history.h>
 
 /*
 **FUNCTIONS
 */
 
-int	shell(void);
+/*
+**MAIN
+*/
+
+int		shell(void);
+
+/*
+**UTILIES
+*/
+
+char	**get_path(char **path);
 
 #endif

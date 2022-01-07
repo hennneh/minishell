@@ -1,0 +1,71 @@
+Things we need
+	-MONEY ;)
+	- global variable == error value for $? 
+
+
+CMDS CODE
+	-ECHO							Kostas
+		- "-n"
+	-CD								Hendrik
+	-PWD							Hendrik
+	-EXPORT							Hamster
+	-UNSET							Hamster
+	-ENV							Hamster
+	-EXIT							Hamster
+	-$?								Hamster
+	-CTRL							Hendrik
+		-C	(newline)				
+		-D
+		-\
+	
+
+LAUNCH SHELL						ALL
+	- Only one Argument
+	- launch SHELL
+
+READ INPUT												Vincent
+	-Error handling										Hamster
+		- '\''
+		- ';'
+		- dont ?interpret? unlcosed quotes ?(%2 == 0)?
+		- other unspecified special chars
+	-Get prompt for readline (location)					Hendrik(pwd)
+	-
+
+ANALYZE INPUT											Vincent
+	-Working History									Hendrik
+	-Number of args/cmds								Vincent
+		-find all paths									Vincent/Kostas
+		-find correct launch path for each arg/cmd		Vincent/Kostas
+	
+
+EXECUTE INPUT										Kostas
+
+
+END SHELL
+	- freeing									Hamster
+	- exit										Hamster/ALL
+
+CMD SEPERATORS									Kostas
+	- |
+	- <
+	- >
+	- >>
+	- <<
+
+typedef struct s_shell
+{
+	char **env;
+	t_lst *his;
+	int n_cmds;
+	char *pwd;
+	t_cmd *cmds;
+}	t_shell;
+
+typedef struct s_cmd
+{
+	int fd[2]; (input and output)
+	int append_flag;
+	char *path_cmd; (includes exe path + cmd)
+	char **cmd_args;
+}	t_cmd;
