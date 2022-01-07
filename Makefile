@@ -6,7 +6,7 @@
 #    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/07 15:24:09 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/01/07 15:36:52 by cdahlhof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,7 @@ NAME = minishell
 LFT = libft/
 
 SRC =	main.c \
-		util/path.c \
-		util/error_handling.c
+		util/path.c 
 
 CC = gcc
 
