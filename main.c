@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/07 13:34:07 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/07 14:41:08 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ int	shell(char **env)
 		if (s.input)
 		{
 			s.his = add_input_his(s.input, s.his); // Hendrik
+			if (error_handling(s.input))
+			{
+				free(s.input);
+				continue ;
+			}
 			read_input(s.input, s.cmds, s); // Vincent
 			analyse_inputs(s.cmds); // Vincent
 			exec_inputs(s.cmds); // Vincent & Kostas

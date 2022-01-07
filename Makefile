@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/05 11:22:04 by vheymans         ###   ########.fr        #
+#    Updated: 2022/01/07 15:24:09 by cdahlhof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ LFT = libft/
 
 SRC =	main.c \
 		util/path.c \
+		util/error_handling.c
 
 CC = gcc
 
