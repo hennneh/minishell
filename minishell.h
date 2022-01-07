@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/07 11:17:21 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/07 13:22:58 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,33 @@
 # include <readline/history.h>
 
 /*
+**	STRUCTS
+*/
+typedef struct s_cmd;
+
+/*
+**env == enviroment; his == history; 
+*/
+
+typedef struct s_shell
+{
+	char	**env;
+	t_lst	*his;
+	int		n_cmds;
+	char	*pwd;
+	t_cmd 	*cmds;
+	char	*input;
+}	t_shell;
+
+typedef struct s_cmd
+{
+	int fd[2]; (input and output)
+	int append_flag;
+	char *path_cmd; (includes exe path + cmd)
+	char **cmd_args;
+}	t_cmd;
+
+/*
 **FUNCTIONS
 */
 
@@ -48,7 +75,7 @@
 **MAIN
 */
 
-int		shell(void);
+int		shell(char **env);
 
 /*
 **UTILIES
