@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/07 13:45:05 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/07 17:24:16 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 **	STRUCTS
 */
 
-typedef struct s_cmd	t_shell;
+typedef struct s_cmd	t_cmd;
 
 /*
 ** env == enviroment; his == history; n_cmds == # of cmds;
