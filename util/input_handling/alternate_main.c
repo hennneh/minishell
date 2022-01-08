@@ -3,56 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   split_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/07 17:42:02 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:39:01 by kchaniot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-/*
-** count_cmds: counts the number of cmd seperators as to count the number of
-** commands
-*/
-
-int	count_cmds(char *input)
+int	shell(char **env)
 {
-	int	i;
-	int	count;
+	t_shell s;
 
-	i = 0;
-	count = 1;
-	while (input[i])
+	char **split = NULL;
+	s.env = env;
+	s.pwd = getenv("PWD="); // free in the end
+	while (1)
 	{
-		if (input[i] == '<')
+		s.input = readline(ft_strjoin(s.pwd, "$ "));
+		if (!ft_strncmp(s.input,"END", 3))
+			break ;
+		//printf("input > %s\n", s.input);
+		//check_pipe
+		if (ft_strchr(s.input, PIPE)) // initial separation of arguments, need separate function for that
 		{
-			if (input[i + 1] == '<')
-				i ++;
-			count ++;
+			split = ft_split(s.input, PIPE);
+			for (int i = 0; split[i]; i++)
+				printf("%s\n", split[i]);
 		}
-		if (input[i] == '>')
-		{
-			if (input[i + 1] == '>')
-				i ++;
-			count ++;
-		}
-		if (input[i] == '|')
-			count ++;
-		i ++;
+		
 	}
-	return (count);
-}
-
-/*
-**
-*/
-
-t_cmd	*split_cmds(char *input)
-{
-	int	n_cmds;
-
-	n_cmds = count_cmds(input);
-	
+	return (0);
 }
