@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/07 15:37:01 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:39:20 by kchaniot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	shell(char **env)
 		if (s.input)
 		{
 			s.his = add_input_his(s.input, s.his); // Hendrik
-			read_input(s.input, s.cmds, s); // Vincent
-			analyse_inputs(s.cmds); // Vincent
-			exec_inputs(s.cmds); // Vincent & Kostas
+			read_input(s.input, s.seq, s); // Vincent
+			analyse_inputs(s.seq); // Vincent
+			exec_inputs(s.seq); // Vincent & Kostas
 		}
 		else if (!s.input)
 			exit_shell(&s); // Hamster

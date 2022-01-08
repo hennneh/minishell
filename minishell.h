@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/07 13:45:05 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/08 18:35:24 by kchaniot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,30 @@
 # include <readline/history.h>
 
 /*
+** MACROS
+*/
+
+# define PIPE '|'
+
+/*
 **	STRUCTS
 */
 
-typedef struct s_cmd	t_shell;
+typedef struct s_seq	t_seq;
 
 /*
 ** env == enviroment; his == history; n_cmds == # of cmds;
-** pwd = print(present)_working_dir; ** cmds == holds all the cmds;
+** pwd = print(present)_working_dir; ** seq(uence) == holds cmds/files;
 ** input = output from readline;
 */
 
 typedef struct s_shell
 {
 	char	**env;
-	t_lst	*his;
+	t_list	*his;
 	int		n_cmds;
 	char	*pwd;
-	t_cmd	*cmds;
+	t_seq	**seq;
 	char	*input;
 }	t_shell;
 
@@ -67,13 +73,21 @@ typedef struct s_shell
 **path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
 */
 
-typedef struct s_cmd
+typedef struct s_seq
 {
 	int		fd[2];
 	int		append_flag;
+	int		create_flag;
+	int		here_doc_flag;
+	int		input_red_flag;
+	t_cmd	cmd;
+}	t_seq;
+
+typedef struct s_cmd
+{
 	char	*path_cmd;
 	char	**cmd_args;
-}	t_cmd;
+}				t_cmd;
 
 /*
 **	FUNCTIONS
