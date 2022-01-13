@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+         #
+#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/08 13:28:11 by kchaniot         ###   ########.fr        #
+#    Updated: 2022/01/11 17:53:43 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ NAME = minishell
 LFT = libft/
 
 SRC =	main.c \
-		util/path.c 
+		util/path.c \
+		util/input_handling/find_limitor.c \
+		util/input_handling/alternate_main.c \
 
 CC = gcc
 

@@ -25,7 +25,7 @@ char	*ft_strdup(const char *s)
 	int		pos;
 
 	pos = ft_strlen(s);
-	new = malloc(pos + 1);
+	new = ft_calloc(sizeof(char), pos + 1);
 	while (pos >= 0)
 	{
 		new[pos] = s[pos];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/08 18:35:24 by kchaniot         ###   ########.fr       */
+/*   Updated: 2022/01/11 10:40:57 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,12 @@ typedef struct s_shell
 	char	*input;
 }	t_shell;
 
+typedef struct s_cmd
+{
+	char	*path_cmd;
+	char	**cmd_args;
+}	t_cmd;
+
 /*
 **fd == contains input and output fd; append_flag == if it needs to be appended;
 **path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
@@ -75,6 +81,7 @@ typedef struct s_shell
 
 typedef struct s_seq
 {
+	char	*seq;
 	int		fd[2];
 	int		append_flag;
 	int		create_flag;
@@ -83,11 +90,7 @@ typedef struct s_seq
 	t_cmd	cmd;
 }	t_seq;
 
-typedef struct s_cmd
-{
-	char	*path_cmd;
-	char	**cmd_args;
-}				t_cmd;
+
 
 /*
 **	FUNCTIONS
@@ -104,5 +107,12 @@ int		shell(char **env);
 */
 
 char	**get_path(char **path);
+char	*find_limitor(char *s);
+
+/*
+**TESTING (to be removed)
+*/
+
+int		shell_t(char **env);
 
 #endif

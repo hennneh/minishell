@@ -1,4 +1,4 @@
-Things we need
+	Things we need
 	-MONEY ;)
 	- global variable == error value for $? 
 
@@ -53,19 +53,23 @@ CMD SEPERATORS									Kostas
 	- >>
 	- <<
 
-typedef struct s_shell
+/*
+**fd == contains input and output fd; append_flag == if it needs to be appended;
+**path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
+*/
+
+typedef struct s_seq
 {
-	char **env;
-	t_lst *his;
-	int n_cmds;
-	char *pwd;
-	t_cmd *cmds;
-}	t_shell;
+	int		fd[2];
+	int		append_flag;
+	int		create_flag;
+	int		here_doc_flag;
+	int		input_red_flag;
+	t_cmd	cmd;
+}	t_seq;
 
 typedef struct s_cmd
 {
-	int fd[2]; (input and output)
-	int append_flag;
-	char *path_cmd; (includes exe path + cmd)
-	char **cmd_args;
-}	t_cmd;
+	char	*path_cmd;
+	char	**cmd_args;
+}				t_cmd;
