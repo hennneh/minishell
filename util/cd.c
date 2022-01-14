@@ -1,16 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:18:48 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/14 13:42:56 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/14 14:08:03 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "mini_shell.h"
+
+int	cd_rest(t_shell *shell, char *dir)
+{
+	ft_getcwd(shell);
+	if (!shell->pwd || !dir)
+		return (1);
+	new = ft_strjoin(shell->pwd, "/");
+	temp = ft_strjoin(new, dir);
+	free(new);
+	ret = chdir(temp);
+	if (ret)
+	{
+		free(temp);
+		return (1);
+	}
+	free(temp);
+	ft_getcwd(shell);
+	return (0);
+}
 
 /*
  * changing to parent dir and updating shell->pwd variable to new dir
