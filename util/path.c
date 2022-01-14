@@ -6,11 +6,54 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:41:05 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/05 11:27:22 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/13 17:43:25 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*ft_get_path(char **path, char **cmd)
+{
+	int		x;
+	char	*temp;
+
+	x = 0;
+	while (path[x])
+	{
+		temp = ft_strjoin(path[x], *cmd);
+		if (!access(temp, X_OK) && !access(temp, F_OK))
+			return (temp);
+		free(temp);
+		x ++;
+	}
+	return (NULL);
+}
+
+/*
+**Creates the 2d array containing all the possible paths
+*/
+
+char	**ft_path(char **env)
+{
+	int		x;
+	char	**path;
+
+	x = 0;
+	path = NULL;
+	while (env[x])
+	{
+		if (ft_strnstr(env[x], "PATH=", 5))
+		{
+			path = ft_split(ft_strnstr(env[x], "PATH=", 5), ':');
+			break ;
+		}
+		x ++;
+	}
+	if (!path)
+		return (NULL);
+	ft_add_slash(path);
+	return (path);
+}
 
 /*
 **adds a '/' to the end of line in a array
@@ -30,25 +73,4 @@ int	ft_add_slash(char **array)
 		x ++;
 	}
 	return (0);
-}
-
-/*
-**get_path frees the previous path if it exists and finds the local paths.
-**Returns in a ** str with a slash
-*/
-
-char	**get_path(char **path)
-{
-	if (path)
-	{
-		if (path[0])
-			free_2dstr(path);
-		else
-			free(path);
-	}
-	path = ft_split(getenv("PATH"), ':');
-	if (!path)
-		return (NULL);
-	ft_add_slash(path);
-	return (path);
 }
