@@ -6,7 +6,7 @@
 #    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/11 17:53:43 by vheymans         ###   ########.fr        #
+#    Updated: 2022/01/16 18:03:18 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ LFT = libft/
 
 SRC =	main.c \
 		util/path.c \
+		util/cmd.c \
 		util/input_handling/find_limitor.c \
 		util/input_handling/alternate_main.c \
 

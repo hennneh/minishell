@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/14 16:54:46 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/16 18:22:18 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ int	init_fd(t_seq *seq, char *line, int fd) //doesnt account for if things are i
 		}
 		if (*s + 1 == c)
 			s ++;
-		free(s);
+		//free(s);
 		s = ft_strchr(s + 1, c);
 	}
-	free(s);
+	if (s)
+		free(s);
 	return (0);
 }
 
@@ -125,25 +126,26 @@ int	shell_t(char **env)
 		//if (ft_strchr(s.input, PIPE)) // initial separation of arguments, need separate function for that
 		//{
 			split = ft_split(s.input, PIPE);
+			printf("split = %s\n", split[0]);
 			int i = 0;
 			while (i == 0)
 			{
+				printf("start while\n");
 				init_seq(&seq, split[i], s.env);
+				printf("init seq done\n");
 				dup2(seq.fd[0], STDIN_FILENO);
 				dup2(seq.fd[1], STDOUT_FILENO);
-				char **cat;
-				cat = ft_calloc(sizeof(char *), 2);
-				cat[0] = ft_strdup("cat");
+				printf("path cmd = %s\n", seq.cmd->path_cmd);
 				int pid = fork();
 				if (!pid)
-					execve("/bin/cat", cat, env);
+					execve(seq.cmd->path_cmd, seq.cmd->cmd_args, env);
 				else 
 					waitpid(pid, NULL, 0);
 				i ++;
-				write(1, "done\n", 5);
+				write(1, "DONE\n", 5);
 			}
 		//}
 	}
-	printf("done\n");
+	printf("done shell\n");
 	return (0);
 }
