@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   alternate_main.c                                   :+:      :+:    :+:   */
+/*   input_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/18 15:42:54 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:09:37 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_cmd(t_seq *seq, char **path)// dont have CTRL, still need argument pars
 		seq->wht_cmd = 8;
 	else if (ft_strnstr(seq->seq, "$?", 2))
 		seq->wht_cmd = 9;
-	return (cmd_new(&seq->cmd, seq->seq, path));
+	return (cmd_new(&seq->cmd, seq, path));
 }
 
 /*

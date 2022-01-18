@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:45:37 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 16:39:26 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:10:25 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,24 +147,24 @@ int	ms_export(t_seq *q, t_shell *s)
 	return 0;
 }
 
-int	main(int argc, char **argv, char **env)
-{
-	t_shell	s;
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_shell	s;
 
-	if (argc != 1 || argv[1])
-		return(2);
-	create_env(env, &s);
-	// disp_env(&s);
+// 	if (argc != 1 || argv[1])
+// 		return(2);
+// 	create_env(env, &s);
+// 	// disp_env(&s);
 
-	t_seq	*q = ft_calloc(1, sizeof(t_seq));
+// 	t_seq	*q = ft_calloc(1, sizeof(t_seq));
 
-	//	test the functionality of export
-	q->cmd.cmd_args = ft_split("lal meme meh", ' ');
-	ms_export(q, &s);
-	free(q->cmd.cmd_args);
-	q->cmd.cmd_args = ft_split("#", ' ');
-	ms_export(q, &s);
+// 	//	test the functionality of export
+// 	q->cmd.cmd_args = ft_split("lal meme meh", ' ');
+// 	ms_export(q, &s);
+// 	free(q->cmd.cmd_args);
+// 	q->cmd.cmd_args = ft_split("#", ' ');
+// 	ms_export(q, &s);
 	
-	free(q);
-	return(0);
-}
+// 	free(q);
+// 	return(0);
+// }

@@ -14,27 +14,25 @@
 
 #include "minishell.h"
 
-int	shell(char **env)
+int		shell(char **env)
 {
 	t_shell	s;
 
-int		shell(char **env)
-{
-	s.env = create_env(env, &s); // changed by Hamdrik
-	s.pwd = get_pwd(); // Hendrik
+	create_env(env, &s); // changed by Hamdrik
+//	s.pwd = get_pwd(); // Hendrik
 	while (1)
 	{
-		s.input = readline(s.pwd);
-		if (s.input)
-		{
-			s.his = add_input_his(s.input, s.his); // Hendrik
-			read_input(s.input, s.seq, s); // Vincent
-			analyse_inputs(s.seq); // Vincent
-			exec_inputs(s.seq); // Vincent & Kostas
-		}
-		else if (!s.input)
-			exit_shell(&s); // Hamster
-		free(s.input);
+		// s.input = readline(s.pwd);
+		// if (s.input)
+		// {
+		// 	s.his = add_input_his(s.input, s.his); // Hendrik
+		// 	read_input(s.input, s.seq, s); // Vincent
+		// 	analyse_inputs(s.seq); // Vincent
+		// 	exec_inputs(s.seq); // Vincent & Kostas
+		// }
+		// else if (!s.input)
+		// 	exit_shell(&s); // Hamster
+		// free(s.input);
 	}
 	return (0);
 }
@@ -43,6 +41,6 @@ int	main(int argc, char **argv, char **env)
 {
 	if (argc != 1 && strncmp(argv[0], "./minishell", strlen(argv[0])))
 		ft_error("fuck", 2);
-	shell_t(env);
+	shell(env);
 	return (0);
 }
