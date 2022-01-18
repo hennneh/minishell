@@ -6,11 +6,11 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:53:05 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 15:03:43 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:44:19 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../minishell.h"
 
 /*
 	Overview in this File:
@@ -23,7 +23,7 @@
 		if no argument is given the error message is "not enough arguments"
 */
 
-void	ms_unset(t_seq *q, t_shell *s)
+int	ms_unset(t_seq *q, t_shell *s)
 {
 	int		i;
 	int		c;
@@ -70,6 +70,7 @@ void	ms_unset(t_seq *q, t_shell *s)
 		}
 		
 	}
+	return (0);
 }
 
 /*
