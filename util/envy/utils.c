@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:54:43 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 16:39:36 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:05:00 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	create_env(char **sysenv, t_shell *s)
 }
 
 //	return the number of lines in a list
-size_t	outerlen(char **list)
+int	outerlen(char **list)
 {
 	int i;
 

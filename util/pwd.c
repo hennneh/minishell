@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:44:04 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/14 13:44:06 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:06:45 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,21 @@ void	ft_getcwd(t_shell *shell)
 	shell->pwd = dir;
 }
 
-/*
- * main for testing purposes
- */
+// /*
+//  * main for testing purposes
+//  */
 
-int	main(void)
-{
-	t_shell	shell;
-	shell.pwd = malloc(1);
-	shell.pwd[0] = 'p';
-	pwd(&shell);
-	int i = 0;
-	while (shell.pwd[i])
-	{
-		write(1, &shell.pwd[i], 1);
-		i++;
-	}
-	return (0);
-}
+// int	main(void)
+// {
+// 	t_shell	shell;
+// 	shell.pwd = malloc(1);
+// 	shell.pwd[0] = 'p';
+// 	pwd(&shell);
+// 	int i = 0;
+// 	while (shell.pwd[i])
+// 	{
+// 		write(1, &shell.pwd[i], 1);
+// 		i++;
+// 	}
+// 	return (0);
+// }
