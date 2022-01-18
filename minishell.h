@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/18 15:06:20 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:06:45 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 */
 
 # include "libft/libft.h"
+# include "util/envy/env.h"
 
 /*
 **	INCLUDES

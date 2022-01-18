@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/10 14:07:24 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:03:14 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,24 @@
 // {
 // 	t_shell	s;
 
-// 	s.env = env; // changed by Hamster
-// 	s.pwd = get_pwd(); // Hendrick
-// 	while (1)
-// 	{
-// 		s.input = readline(s.pwd);
-// 		if (s.input)
-// 		{
-// 			s.his = add_input_his(s.input, s.his); // Hendrik
-// 			read_input(s.input, s.seq, s); // Vincent
-// 			analyse_inputs(s.seq); // Vincent
-// 			exec_inputs(s.seq); // Vincent & Kostas
-// 		}
-// 		else if (!s.input)
-// 			exit_shell(&s); // Hamster
-// 		free(s.input);
-// 	}
-// 	return (0);
-// }
+	s.env = create_env(env, &s); // changed by Hamdrik
+	s.pwd = get_pwd(); // Hendrik
+	while (1)
+	{
+		s.input = readline(s.pwd);
+		if (s.input)
+		{
+			s.his = add_input_his(s.input, s.his); // Hendrik
+			read_input(s.input, s.seq, s); // Vincent
+			analyse_inputs(s.seq); // Vincent
+			exec_inputs(s.seq); // Vincent & Kostas
+		}
+		else if (!s.input)
+			exit_shell(&s); // Hamster
+		free(s.input);
+	}
+	return (0);
+}
 
 int	main(int argc, char **argv, char **env)
 {
