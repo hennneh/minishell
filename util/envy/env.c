@@ -6,11 +6,11 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:53:05 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 14:08:45 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:43:04 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../minishell.h"
 
 /*
 	Overview in this File:
@@ -72,13 +72,13 @@ void	ms_env(t_seq *q, t_shell *s)
 }
 
 //	a function to extract the value of an environmental variable
-char	*getenv(char *key, t_shell *s)
+char	*ms_getenv(char *key, t_shell *s)
 {
 	int	p;
 
 	p = keyfinder(key, ft_strlen(key), s->env);
 	if (p >= 0)
-		return (s->env[p])
+		return (s->env[p]);
 	else
 		return (NULL);
 }

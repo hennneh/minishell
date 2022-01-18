@@ -6,11 +6,11 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:54:43 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/17 11:35:31 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:39:36 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../minishell.h"
 
 //	duplicate the system-environment and store the copy in the given shell
 int	create_env(char **sysenv, t_shell *s)
