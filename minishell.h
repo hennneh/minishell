@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/16 18:02:24 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:06:20 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ typedef struct s_seq
 	int		create_flag;
 	int		here_doc_flag;
 	int		input_red_flag;
-	t_cmd	*cmd;
+	t_cmd	cmd;
 }	t_seq;
 
 /*
@@ -112,7 +112,7 @@ int		shell(char **env);
 
 char	**ft_path(char **env);
 char	*ft_get_path(char **path, char **cmd);
-int		cmd_new(t_cmd *new, char *argv, char **path);
+int		cmd_new(t_cmd *new, t_seq *s, char **path);
 void	free_cmd(t_cmd *elem, int nelem);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);

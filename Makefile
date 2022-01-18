@@ -6,7 +6,7 @@
 #    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/16 18:03:18 by vheymans         ###   ########.fr        #
+#    Updated: 2022/01/18 15:43:39 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC =	main.c \
 		util/path.c \
 		util/cmd.c \
 		util/input_handling/find_limitor.c \
-		util/input_handling/alternate_main.c \
+		util/input_handling/input_parsing.c \
 
 CC = gcc
 

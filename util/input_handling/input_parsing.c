@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/16 18:22:18 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:42:54 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,23 @@
 
 int	init_cmd(t_seq *seq, char **path)// dont have CTRL, still need argument parsing for our functions
 {
-	if (ft_strncmp(seq->seq, "echo", 4))
+	if (ft_strnstr(seq->seq, "echo", 4))
 		seq->wht_cmd = 2;
-	else if (ft_strncmp(seq->seq, "cd", 2))
+	else if (ft_strnstr(seq->seq, "cd", 2))
 		seq->wht_cmd = 3;
-	else if (ft_strncmp(seq->seq, "pwd", 3))
+	else if (ft_strnstr(seq->seq, "pwd", 3))
 		seq->wht_cmd = 4;
-	else if (ft_strncmp(seq->seq, "export", 6))
+	else if (ft_strnstr(seq->seq, "export", 6))
 		seq->wht_cmd = 5;
-	else if (ft_strncmp(seq->seq, "unset", 5))
+	else if (ft_strnstr(seq->seq, "unset", 5))
 		seq->wht_cmd = 6;
-	else if (ft_strncmp(seq->seq, "env", 3))
+	else if (ft_strnstr(seq->seq, "env", 3))
 		seq->wht_cmd = 7;
-	else if (ft_strncmp(seq->seq, "exit", 4))
+	else if (ft_strnstr(seq->seq, "exit", 4))
 		seq->wht_cmd = 8;
-	else if (ft_strncmp(seq->seq, "$?", 2))
+	else if (ft_strnstr(seq->seq, "$?", 2))
 		seq->wht_cmd = 9;
-	else
-		return (cmd_new(seq->cmd, seq->seq, path));
-	return (0);
+	return (cmd_new(&seq->cmd, seq->seq, path));
 }
 
 /*
@@ -79,7 +77,6 @@ int	init_fd(t_seq *seq, char *line, int fd) //doesnt account for if things are i
 		}
 		if (*s + 1 == c)
 			s ++;
-		//free(s);
 		s = ft_strchr(s + 1, c);
 	}
 	if (s)
@@ -97,6 +94,7 @@ int	init_seq(t_seq *seq, char *line, char **env)
 		ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
 		return (1);
 	}
+	printf("init_done\n");
 	seq->wht_cmd = 0;
 	if (init_cmd(seq, ft_path(env)) == 1)
 	{
@@ -106,7 +104,7 @@ int	init_seq(t_seq *seq, char *line, char **env)
 	return (0);
 }
 
-int	shell_t(char **env)
+/*int	shell_t(char **env)
 {
 	t_shell s;
 	t_seq seq;
@@ -135,10 +133,10 @@ int	shell_t(char **env)
 				printf("init seq done\n");
 				dup2(seq.fd[0], STDIN_FILENO);
 				dup2(seq.fd[1], STDOUT_FILENO);
-				printf("path cmd = %s\n", seq.cmd->path_cmd);
+				printf("path cmd = %s\n", seq.cmd.path_cmd);// SEG fault
 				int pid = fork();
 				if (!pid)
-					execve(seq.cmd->path_cmd, seq.cmd->cmd_args, env);
+					execve(seq.cmd.path_cmd, seq.cmd.cmd_args, env);
 				else 
 					waitpid(pid, NULL, 0);
 				i ++;
@@ -148,4 +146,4 @@ int	shell_t(char **env)
 	}
 	printf("done shell\n");
 	return (0);
-}
+}*/

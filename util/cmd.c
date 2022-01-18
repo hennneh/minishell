@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:47:08 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/14 15:05:37 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:08:15 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,21 @@ void	free_cmd(t_cmd *elem, int nelem)
 **Make a new element of t_cmd type
 */
 
-int	cmd_new(t_cmd *new, char *argv, char **path)
+int	cmd_new(t_cmd *new, t_seq *s, char **path)
 {
-	new->cmd_args = ft_split(ft_substr(argv, 0, ft_strlen(argv) - ft_strlen(find_limitor(argv))), ' ');
+	new->cmd_args = ft_split(ft_substr(s->seq, 0, ft_strlen(s->seq) - ft_strlen(find_limitor(s->seq))), ' ');
 	if (new->cmd_args == 0)
 		return (1);
-	new->path_cmd = ft_get_path(path, new->cmd_args);
-	if (new->path_cmd == 0)
-		return (1);
+	printf("cmd_args = %s\n", new->cmd_args[0]);
+	if (s->wht_cmd > 0)
+		new->path_cmd = NULL;
+	else
+	{
+		new->path_cmd = ft_get_path(path, new->cmd_args);
+		if (new->path_cmd == 0)
+			return (1);
+	}
+	printf("path_cmd = %s\n", new->path_cmd);
 	return (0);
 }
 
