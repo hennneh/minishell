@@ -6,11 +6,11 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:45:37 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/17 14:20:53 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/18 16:39:26 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "../../minishell.h"
 /*
 	Overview in this File:
 		create the execution of the command "export"

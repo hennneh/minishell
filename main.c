@@ -3,18 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/18 15:56:31 by vheymans         ###   ########.fr       */
+/*                                                                            */                  
+/*   Updated: 2022/01/18 16:42:41 by cdahlhof         ###   ########.fr       */
+/*                                                                            */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// int	shell(char **env)
-// {
-// 	t_shell	s;
+int	shell(char **env)
+{
+	t_shell	s;
 
 int		shell(char **env)
 {
