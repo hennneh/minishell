@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:53:05 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/17 11:56:06 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:03:43 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ms_unset(t_seq *q, t_shell *s)
 	}
 }
 
+/*
+
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	s;
@@ -96,3 +98,5 @@ int	main(int argc, char **argv, char **env)
 	free(q);
 	return(0);
 }
+
+*/

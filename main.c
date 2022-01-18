@@ -6,7 +6,7 @@
 /*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/08 18:39:20 by kchaniot         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:03:14 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	shell(char **env)
 {
 	t_shell	s;
 
-	s.env = env; // changed by Hamster
-	s.pwd = get_pwd(); // Hendrick
+	s.env = create_env(env, &s); // changed by Hamdrik
+	s.pwd = get_pwd(); // Hendrik
 	while (1)
 	{
 		s.input = readline(s.pwd);
