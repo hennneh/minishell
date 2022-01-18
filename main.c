@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
 /*   Updated: 2022/01/18 15:03:14 by hlehmann         ###   ########.fr       */
@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-int	shell(char **env)
-{
-	t_shell	s;
+// int	shell(char **env)
+// {
+// 	t_shell	s;
 
 	s.env = create_env(env, &s); // changed by Hamdrik
 	s.pwd = get_pwd(); // Hendrik
@@ -39,6 +39,6 @@ int	main(int argc, char **argv, char **env)
 {
 	if (argc != 1 && strncmp(argv[0], "./minishell", strlen(argv[0])))
 		ft_error("fuck", 2);
-	shell(env);
+	shell_t(env);
 	return (0);
 }

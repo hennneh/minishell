@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
 /*   Updated: 2022/01/18 15:06:45 by hlehmann         ###   ########.fr       */
@@ -70,25 +70,32 @@ typedef struct s_shell
 }	t_shell;
 
 /*
-**fd == contains input and output fd; append_flag == if it needs to be appended;
 **path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
+*/
+
+typedef struct s_cmd
+{
+	char	*path_cmd;
+	char	**cmd_args;
+}	t_cmd;
+
+/*
+**seq == line after being devided by pipes; fd == contains input and output fd;
+**append_flag == if it needs to be appended; wht_cmd == 0 if shell cmd, + if ours
+
 */
 
 typedef struct s_seq
 {
+	char	*seq;
 	int		fd[2];
+	int		wht_cmd;
 	int		append_flag;
 	int		create_flag;
 	int		here_doc_flag;
 	int		input_red_flag;
 	t_cmd	cmd;
 }	t_seq;
-
-typedef struct s_cmd
-{
-	char	*path_cmd;
-	char	**cmd_args;
-}				t_cmd;
 
 /*
 **	FUNCTIONS
@@ -104,6 +111,17 @@ int		shell(char **env);
 **	UTILIES
 */
 
-char	**get_path(char **path);
+char	**ft_path(char **env);
+char	*ft_get_path(char **path, char **cmd);
+int		cmd_new(t_cmd *new, t_seq *s, char **path);
+void	free_cmd(t_cmd *elem, int nelem);
+char	*find_limitor(char *s);
+int		ft_add_slash(char **array);
+
+/*
+**TESTING (to be removed)
+*/
+
+int		shell_t(char **env);
 
 #endif
