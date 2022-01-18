@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/18 15:03:14 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/18 15:56:31 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 // {
 // 	t_shell	s;
 
+int		shell(char **env)
+{
 	s.env = create_env(env, &s); // changed by Hamdrik
 	s.pwd = get_pwd(); // Hendrik
 	while (1)
