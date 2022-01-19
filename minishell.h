@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/18 17:05:08 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/19 18:49:35 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int		cmd_new(t_cmd *new, t_seq *s, char **path);
 void	free_cmd(t_cmd *elem, int nelem);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
+int		pipe_split(t_shell *shell, char *in);
 
 /*
 **TESTING (to be removed)
