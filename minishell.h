@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/19 23:55:19 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/20 03:19:19 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,14 +106,23 @@ typedef struct s_seq
 	Environment
 */
 
+//	detect quotes and variableFlags
+char	*inserter(char *org, t_shell *s);
+//	find the correct value of a variable
+char	*varfinder(char *org, int i, t_shell *s);
+//	insert a string at a position in another string, replacing the <key>
+char	*insert_string(char *line, char *add, int pos, int skipc);
+
 //	create a copy of the maingiven environmemt; store it in the t_shell
-int	create_env(char **sysenv, t_shell *s);
+int		create_env(char **sysenv, t_shell *s);
 //	return the number of char* in a char**
-int	outerlen(char **list);
+int		outerlen(char **list);
 //	check if a <key> (char*) is found in a char** and if return its position (else - 1)
-int	keyfinder(char *key, int keylen, char **list);
+int		keyfinder(char *key, int keylen, char **list);
+//	return the length of a variable key
+int		keylen(char *inp);
 //	check that the <key> isalphanumerical
-int	key_error(char *input);
+int		key_error(char *input);
 //	display the env in the shell !not the builtinfunction!!!!!
 void	disp_env(t_shell *s);
 

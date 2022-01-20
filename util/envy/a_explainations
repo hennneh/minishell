@@ -27,8 +27,11 @@ there is a namingconvention to variablenames: only Alphanumerical or >_<; no num
 >-< chars are interpreted as flagIdentifiers and therefore lead to a different error message
 >!< chars have a special meaning: being replaced by the previous command in commandline-history
 
+still to do:	create function that gives the input to the appropiate functions +
+				removing the first argument line, which is the command name
 
-things still left to do: concatenate divided strings into the arguments for echo export env and unset
-						while doing that if a segment was in a quote either kind; remove the outer ones
+				fix the "export #" case to express specialChars with >\< in front
 
-						my test functions are riddled with >\< chars, maybe make a function to diappear them
+				take another look at unset and env
+
+				start doing echo

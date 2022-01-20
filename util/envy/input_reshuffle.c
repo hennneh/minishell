@@ -6,13 +6,13 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 22:12:23 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/20 01:09:07 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/20 04:14:05 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-//	insert a string at a position in another string, replacing an amount of characters
+//	insert a string at a position in another string, replacing the <key>
 char	*insert_string(char *line, char *add, int pos, int skipc)
 {
 	int		i;
@@ -54,26 +54,27 @@ int	keylen(char *inp)
 	return(i);
 }
 
+//	i include getpid here to make killing while testing easier; take out before submit
 char	*varfinder(char *org, int i, t_shell *s)
 {
 	char	*value;
 	int		slen;
-	int     alt;
-	char    *res;
+	int		alt;
+	char	*res;
 
 	value = NULL;
 	alt = 1;
 	res = ft_strdup(org);
-	if (!ft_strncmp(res+i, "$?", 2))
+	if (!ft_strncmp(res + i, "$?", 2))
 		value = ft_itoa(g_return);
-	if (!ft_strncmp(res+i, "$0", 2))
+	else if (!ft_strncmp(res + i, "$0", 2))
 		value = ft_strdup("minishell");
-	// if (ft_strncmp(org, "$$", 2))
-	// 	value = ft_itoa(getpid()));
+	else if (ft_strncmp(org, "$$", 2))
+		value = ft_itoa(getpid());// this is a not norm comment; remind that this func is illegal
 	slen = 2;
 	if (!value && keyfinder(&res[i + 1], keylen(&res[i + 1]), s->env) >= 0)
 	{
-	    alt = 0;
+		alt = 0;
 		value = &s->env[keyfinder(&res[i + 1], keylen(&res[i + 1]), s->env)][keylen(&res[i + 1]) + 1];
 		slen = keylen(&res[i + 1]) + 1;
 	}
@@ -104,7 +105,7 @@ char	*inserter(char *org, t_shell *s)
 			qflag = 0;
 		else if (res[i] == '\'' && qflag == '\'')
 			qflag = 0;
-		if (res[i] == '$' && res[i + 1] && (ft_isalnum(res[i + 1]) || res[i + 1] == '_'))
+		if (res[i] == '$' && res[i + 1] && (ft_isalnum(res[i + 1]) || res[i + 1] == '_' || res[i + 1] == '?'))
 		{
 			if (qflag != '\'')
 			{
