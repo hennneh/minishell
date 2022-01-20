@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/20 13:02:34 by kchaniot         ###   ########.fr       */
+/*   Updated: 2022/01/20 15:26:11 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		pipe_split(t_shell *shell, char *in)
 	printf("count done : %d\n", n_pipes);
 	if (n_pipes < 1)
 		return (1);
-	shell->seq = ft_calloc(n_pipes + 1, sizeof(t_seq *));
+	shell->seq = malloc(n_pipes + 1 * sizeof(t_seq *));
 	if (!shell->seq)
 		return (1);
 	printf("calloc done\n");
@@ -76,19 +76,24 @@ int		pipe_split(t_shell *shell, char *in)
 	{
 		while ((in[pos2] != PIPE || flag == -1) && in[pos2])
 		{
+			printf("[%d]  ", pos2);
 			if (in[pos2] == 34 || in[pos2] == '\'')
 				flag *= -1;
 			pos2 ++;
 		}
-		if (in[pos2 + 1] != PIPE)
+		printf("\n");
+		if (in[pos2 + 1] != PIPE && pos2 > pos1)
 		{
+			//printf("%d : [%s]\n", n_pipes, ft_substr(in, pos1, pos2 - pos1));
 			shell->seq[n_pipes]->seq = ft_substr(in, pos1, pos2 - pos1 - 1);
+			printf("substring done\n");
 			printf("%d : [%s]\n", n_pipes, shell->seq[n_pipes]->seq);
 			n_pipes ++;
 		}
 		else if (in[pos2 + 1] && in[pos2 + 1] == PIPE)
-			pos2 += 2;
-		pos1 = ++ pos2;
+			pos2 ++;
+		if (in[pos2 + 1])
+			pos1 = ++ pos2;
 	}
 	return (0);
 }
