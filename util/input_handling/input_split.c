@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/19 18:49:15 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/20 12:43:38 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,28 +61,50 @@ int		pipe_split(t_shell *shell, char *in)
 	int	flag;
 
 	n_pipes = count_pipe(in);
+	printf("count done : %d\n", n_pipes);
 	if (n_pipes < 1)
 		return (1);
 	shell->seq = ft_calloc(n_pipes + 1, sizeof(t_seq *));
 	if (!shell->seq)
 		return (1);
+	printf("calloc done\n");
 	n_pipes = 0;
 	pos1 = 0;
 	pos2 = 0;
 	flag = 1;
 	while (in[pos2])
 	{
-		while ((in[pos2] != PIPE|| flag == -1) && in[pos2])
+		while ((in[pos2] != PIPE || flag == -1) && in[pos2])
 		{
 			if (in[pos2] == 34)
 				flag *= -1;
 			pos2 ++;
 		}
 		if (in[pos2 + 1] != PIPE)
-			shell->seq[n_pipes ++]->seq = ft_substr(in, pos1, pos2 - pos1);
+		{
+			shell->seq[n_pipes]->seq = ft_substr(in, pos1, pos2 - pos1 - 1);
+			printf("%d : [%s]\n", n_pipes, shell->seq[n_pipes]->seq);
+			n_pipes ++;
+		}
 		else if (in[pos2 + 1] && in[pos2 + 1] == PIPE)
-			pos2++;
-		pos1 == pos2;
+			pos2 += 2;
+		pos1 = ++ pos2;
+	}
+	return (0);
+}
+
+int main(int argc, char **argv)
+{
+	argc ++;
+	t_shell s;
+	int i = 0;
+
+	pipe_split(&s, argv[1]);
+	printf("pipe_split done\n");
+	while (s.seq[i]->seq)
+	{
+		printf("%d : [%s]\n", i, s.seq[i]->seq);
+		i ++;
 	}
 	return (0);
 }
