@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_split.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kchaniot <kchaniot@students.42wolfsburg    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/20 12:43:38 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/20 13:02:34 by kchaniot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		count_pipe(char *in)// what if it ends with a pipe == missing bash cmd
 	flag = 1;
 	while (in[i])
 	{
-		if (in[i] == 34)
+		if (in[i] == 34 || in[i] == '\'')
 		{
 			flag *= -1;
 		}
@@ -76,7 +76,7 @@ int		pipe_split(t_shell *shell, char *in)
 	{
 		while ((in[pos2] != PIPE || flag == -1) && in[pos2])
 		{
-			if (in[pos2] == 34)
+			if (in[pos2] == 34 || in[pos2] == '\'')
 				flag *= -1;
 			pos2 ++;
 		}
