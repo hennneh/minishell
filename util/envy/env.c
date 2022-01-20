@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:53:05 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 16:43:04 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/19 19:27:39 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*ms_getenv(char *key, t_shell *s)
 
 	p = keyfinder(key, ft_strlen(key), s->env);
 	if (p >= 0)
-		return (s->env[p]);
+		return (s->env[p + ft_strlen(key) + 1]);
 	else
 		return (NULL);
 }

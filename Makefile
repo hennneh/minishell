@@ -6,7 +6,7 @@
 #    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/18 16:41:17 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/01/20 01:08:32 by cdahlhof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =	main.c \
 		util/envy/utils.c \
 		util/envy/export.c \
 		util/envy/env.c \
+		util/envy/input_reshuffle.c
 
 CC = gcc
 
