@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 15:45:37 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 17:10:25 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:12:17 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	sort_list(char ***plist)
 	}
 }
 
-void	alph_env(t_shell *s)
+void	alph_env(t_shell *s) // still need to >\< each meaningful char
 {
 	char	**list;
 	char	tmp[2];

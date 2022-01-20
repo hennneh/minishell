@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/18 17:05:08 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/19 23:55:19 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 */
 
 # define PIPE '|'
+
+int	g_return;
 
 /*
 **	STRUCTS
@@ -112,6 +114,8 @@ int	outerlen(char **list);
 int	keyfinder(char *key, int keylen, char **list);
 //	check that the <key> isalphanumerical
 int	key_error(char *input);
+//	display the env in the shell !not the builtinfunction!!!!!
+void	disp_env(t_shell *s);
 
 //	display all environmental variables which have values
 void	ms_env(t_seq *q, t_shell *s);

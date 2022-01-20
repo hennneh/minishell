@@ -1,0 +1,34 @@
+/*
+
+So a few comments on the Input structure:
+
+there are two types of Quotes and also two types of variables, which change the layout of the input
+1 VAR
+there are normal ENV-Variables, declared in the environment and stored in the shell
+	-> the ms_getenv() returns a reference to the values in order to copy from there, pls don't change them using this function
+additionally there are a few other variable keys, which are not stored as ENV, but we can hardcode some
+whenever in the input a >$< symbol is encountered the characters immedialy following it (->NAMECON) are used as <key> to find the 
+corresponding <value>
+Notice tho, that unless we are currently between doubleQuotes, the > < will be seen as delimeter between arguments
+2 QUOTES
+anything between doubleQuotes will be interpreted as one argument, and variables will be replaced with their values
+anything between singleQuotes will be interpreted as one argument, but variable <key>s will not be changed
+IMPORTANT
+	it always depends on the outer quotation:
+	"lal'$PATH'lel" will display the PATH
+	'lal"$PATH"lel' won't display the path
+the outer quotes are not part of the actual input
+
+wether the input is valid for each command is to be checked after the input has been reworked
+
+
+NAMECON
+there is a namingconvention to variablenames: only Alphanumerical or >_<; no numeral in first position
+>-< chars are interpreted as flagIdentifiers and therefore lead to a different error message
+>!< chars have a special meaning: being replaced by the previous command in commandline-history
+
+
+things still left to do: concatenate divided strings into the arguments for echo export env and unset
+						while doing that if a segment was in a quote either kind; remove the outer ones
+
+						my test functions are riddled with >\< chars, maybe make a function to diappear them
