@@ -6,11 +6,11 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:44:04 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/18 17:06:45 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/21 09:22:38 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+#include "../../minishell.h"
 
 void	ft_getcwd(t_shell *shell);
 

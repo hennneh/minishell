@@ -6,11 +6,11 @@
 /*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 07:53:13 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/18 07:54:55 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/21 09:22:49 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+#include "../../minishell.h"
 
 char *get_user(t_shell *shell)
 {

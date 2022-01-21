@@ -6,11 +6,11 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:41:05 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/13 17:43:25 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/21 09:22:10 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 char	*ft_get_path(char **path, char **cmd)
 {

@@ -6,11 +6,11 @@
 /*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:18:48 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/14 14:08:03 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/21 09:21:42 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+#include "../../minishell.h"
 
 int	cd_rest(t_shell *shell, char *dir)
 {
