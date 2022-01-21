@@ -6,7 +6,7 @@
 #    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/20 01:08:32 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/01/21 12:19:43 by hlehmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME = minishell
 LFT = ./libft/
 
 SRC =	main.c \
-		util/path.c \
-		util/cmd.c \
+		util/henne/path.c \
+		util/henne/cmd.c \
 		util/input_handling/find_limitor.c \
 		util/input_handling/input_parsing.c \
 		util/envy/unset.c \
