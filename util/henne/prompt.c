@@ -6,11 +6,18 @@
 /*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 07:53:13 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/21 13:55:23 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/24 08:28:28 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
+int	find_user(char *s)
+{
+	if (s[0] == 'U' && s[1] == 'S' && s[2] == 'E' && s[3] == 'R' && s[4] == '=')
+		return (1);
+	return (0);
+}
 
 char *get_user(t_shell *shell)
 {
