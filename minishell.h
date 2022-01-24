@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/20 03:19:19 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/24 09:33:57 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ int		cmd_new(t_cmd *new, t_seq *s, char **path);
 void	free_cmd(t_cmd *elem, int nelem);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
+void	prompt(t_shell *shell);
 
 /*
 **TESTING (to be removed)

@@ -6,7 +6,7 @@
 /*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 07:53:13 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/24 08:28:28 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/24 09:34:45 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,39 @@ char *get_user(t_shell *shell)
 
 char *get_last_dir(t_shell *shell)
 {
+	char	*dir;
+	int		len;
+	char	*last;
+	int		i;
+	int		j;
 
+	dir = strrchr(shell->pwd, '/');
+	len = ft_strlen(dir);
+	last = malloc(sizeof(char) * len);
+	i = 1;
+	j = 0;
+	while (dir[i])
+	{
+		last[j] = dir[i];
+		j++;
+		i++;
+	}
+	return (last);
 }
 
-char *ft_join_shell(char *user, char *path)
-{
+/*
+ * function that prints the prompt
+ */
 
-}
-
-char *prompt(t_shell *shell)
+void prompt(t_shell *shell)
 {
 	char	*user;
-	char	*prompt;
 	char	*path;
 
 	user = get_user(shell);
 	if (!user)
-		return (0);
-	ft_getcwd(shell);
+		return ;
+//	ft_getcwd(shell);
 	path = get_last_dir(shell);
-	prompt = ft_join_shell(user, path);
-	return (prompt);
+	printf("%s: %s$", user, path);
 }
