@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_split.c                                      :+:      :+:    :+:   */
+/*   pipe_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/20 15:26:11 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/01/28 16:20:54 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,21 @@
 **output char **
 */
 
-int		count_pipe(char *in)// what if it ends with a pipe == missing bash cmd
+/*
+**if_quotes
+**0 = outside of quotes; 1 == ""; 2 = '';
+*/
+
+int		quote_check(int pos, char c, char *in)
+{
+	while (in[pos] && in[pos] != c)
+	{
+		pos++;
+	}
+	return (pos);
+}
+
+int		count_pipe(char *in)// what if it ends with a pipe == missing bash cmd; triple |||?
 {
 	int	i;
 	int	count;
@@ -34,16 +48,14 @@ int		count_pipe(char *in)// what if it ends with a pipe == missing bash cmd
 
 	i = 0;
 	count = 1;
-	flag = 1;
+	flag = 0;
 	while (in[i])
 	{
 		if (in[i] == 34 || in[i] == '\'')
-		{
-			flag *= -1;
-		}
+			i = quote_check(i + 1, in[i], in);
 		if (in[i] == PIPE)
 		{
-			if (in[i + 1] && in[i + 1] != PIPE && flag == 1) // missing cmd after '|' error
+			if (in[i + 1] != PIPE && flag == 0) // missing cmd after '|' error
 				count ++;
 			if (in[i + 1] && in[i + 1] == PIPE)
 				i ++;
@@ -58,58 +70,33 @@ int		pipe_split(t_shell *shell, char *in)
 	int	n_pipes;
 	int	pos1;
 	int	pos2;
-	int	flag;
 
-	n_pipes = count_pipe(in);
-	printf("count done : %d\n", n_pipes);
-	if (n_pipes < 1)
+	shell->n_cmds = count_pipe(in);
+	if (shell->n_cmds < 1)
 		return (1);
-	shell->seq = malloc(n_pipes + 1 * sizeof(t_seq *));
+	shell->seq = malloc(shell->n_cmds * sizeof(t_seq *));
 	if (!shell->seq)
 		return (1);
-	printf("calloc done\n");
 	n_pipes = 0;
 	pos1 = 0;
 	pos2 = 0;
-	flag = 1;
-	while (in[pos2])
+	while (n_pipes < shell->n_cmds)
 	{
-		while ((in[pos2] != PIPE || flag == -1) && in[pos2])
+		while(in[pos2] && in[pos2] != PIPE)
 		{
-			printf("[%d]  ", pos2);
 			if (in[pos2] == 34 || in[pos2] == '\'')
-				flag *= -1;
+				pos2 = quote_check(pos2 + 1, in[pos2], in);
 			pos2 ++;
 		}
-		printf("\n");
-		if (in[pos2 + 1] != PIPE && pos2 > pos1)
+		if (!in[pos2] || in[pos2 + 1] != PIPE)
 		{
-			//printf("%d : [%s]\n", n_pipes, ft_substr(in, pos1, pos2 - pos1));
-			shell->seq[n_pipes]->seq = ft_substr(in, pos1, pos2 - pos1 - 1);
-			printf("substring done\n");
-			printf("%d : [%s]\n", n_pipes, shell->seq[n_pipes]->seq);
+			shell->seq[n_pipes] = malloc(sizeof(t_seq));
+			shell->seq[n_pipes]->seq = ft_substr(in, pos1, pos2 - pos1);
 			n_pipes ++;
-		}
-		else if (in[pos2 + 1] && in[pos2 + 1] == PIPE)
-			pos2 ++;
-		if (in[pos2 + 1])
 			pos1 = ++ pos2;
-	}
-	return (0);
-}
-
-int main(int argc, char **argv)
-{
-	argc ++;
-	t_shell s;
-	int i = 0;
-
-	pipe_split(&s, argv[1]);
-	printf("pipe_split done\n");
-	while (s.seq[i]->seq)
-	{
-		printf("%d : [%s]\n", i, s.seq[i]->seq);
-		i ++;
+		}
+		while (in[pos2] == PIPE && in[pos2])
+			pos2 ++;
 	}
 	return (0);
 }

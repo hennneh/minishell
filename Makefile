@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
+#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/01/18 16:41:17 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/01/28 16:22:00 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRC =	main.c \
 		util/cmd.c \
 		util/input_handling/find_limitor.c \
 		util/input_handling/input_parsing.c \
+		util/input_handling/pipe_split.c \
 		util/envy/unset.c \
 		util/envy/utils.c \
 		util/envy/export.c \
@@ -26,7 +27,7 @@ SRC =	main.c \
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra# -l readline
+CFLAGS = -Wall -Werror -Wextra -l readline
 
 all: $(NAME)
 
