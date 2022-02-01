@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 14:46:30 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 15:28:12 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,18 @@ typedef struct s_seq
 	int		input_red_flag;
 	t_cmd	cmd;
 }	t_seq;
+
+/*
+** the environment as a list is smarter, because one can clearly seperate name and value
+** on top of that is it possible to have some edge case flags handled (PWD & HOME)
+*/
+
+typedef struct s_envar
+{
+	char			*key;
+	char			*value;
+	int				print;
+}	t_envar;
 
 /*
 **	FUNCTIONS
