@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/18 17:09:37 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:28:43 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,34 +84,38 @@ int	init_fd(t_seq *seq, char *line, int fd) //doesnt account for if things are i
 	return (0);
 }
 
-int	init_seq(t_seq *seq, char *line, char **env)
+int	init_seq(t_seq *seq, char **env)
 {
-	seq->seq = line;
 	seq->fd[0] = STDIN_FILENO;
 	seq->fd[1] = STDOUT_FILENO;
-	if (init_fd(seq, line, 0) || init_fd(seq, line, 1))
-	{
-		ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
-		return (1);
-	}
+	
 	printf("init_done\n");
 	seq->wht_cmd = 0;
-	if (init_cmd(seq, ft_path(env)) == 1)
+	if (cmd_split(seq->seq, seq))
 	{
-		ft_error("Incorrect cmd", STDERR_FILENO); //ERROR
+		ft_error("SPLIT ERROR", STDERR_FILENO);
 		return (1);
 	}
+	env = NULL;
+	// if (init_cmd(seq, ft_path(env)) == 1)
+	// {
+	// 	ft_error("Incorrect cmd", STDERR_FILENO); //ERROR
+	// 	return (1);
+	// }
+	// if (init_fd(seq, seq->seq, 0) || init_fd(seq, seq->seq, 1))
+	// {
+	// 	ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
+	// 	return (1);
+	// }
 	return (0);
 }
 
-/*int	shell_t(char **env)
+int	shell_t(char **env)
 {
 	t_shell s;
-	t_seq seq;
 
-	char **split = NULL;
 	s.env = env;
-	s.pwd = getenv("PWD="); // free in the end
+	s.pwd = getenv("PWD=");
 	while (1)
 	{
 		dup2(0, STDIN_FILENO);
@@ -119,31 +123,27 @@ int	init_seq(t_seq *seq, char *line, char **env)
 		s.input = readline(ft_strjoin(s.pwd, "$ "));
 		if (!ft_strncmp(s.input,"END", 3))
 			break ;
-		//printf("input > %s\n", s.input);
-		//check_pipe
-		//if (ft_strchr(s.input, PIPE)) // initial separation of arguments, need separate function for that
-		//{
-			split = ft_split(s.input, PIPE);
-			printf("split = %s\n", split[0]);
-			int i = 0;
-			while (i == 0)
-			{
-				printf("start while\n");
-				init_seq(&seq, split[i], s.env);
-				printf("init seq done\n");
-				dup2(seq.fd[0], STDIN_FILENO);
-				dup2(seq.fd[1], STDOUT_FILENO);
-				printf("path cmd = %s\n", seq.cmd.path_cmd);// SEG fault
-				int pid = fork();
-				if (!pid)
-					execve(seq.cmd.path_cmd, seq.cmd.cmd_args, env);
-				else 
-					waitpid(pid, NULL, 0);
-				i ++;
-				write(1, "DONE\n", 5);
-			}
-		//}
+		s.n_cmds = 0;
+		pipe_split(&s, s.input);
+		int i = 0;
+		while (i < s.n_cmds)
+		{
+			printf("start while\n");
+			init_seq(s.seq[i], s.env);
+			printf("init seq done\n");
+			dup2(s.seq[i]->fd[0], STDIN_FILENO);
+			dup2(s.seq[i]->fd[1], STDOUT_FILENO);
+			for (int x = 0; s.seq[i]->split[x]; x++)
+				printf("path cmd = %s\n", s.seq[i]->split[x]);// SEG fault
+			// int pid = fork();
+			// if (!pid)
+			// 	execve(s.seq[i]->cmd.path_cmd, s.seq[i]->cmd.cmd_args, env);
+			// else 
+			// 	waitpid(pid, NULL, 0);
+			i ++;
+			write(1, "DONE\n", 5);
+		}
 	}
 	printf("done shell\n");
 	return (0);
-}*/
+}

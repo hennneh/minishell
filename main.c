@@ -42,6 +42,6 @@ int	main(int argc, char **argv, char **env)
 {
 	if (argc != 1 && strncmp(argv[0], "./minishell", strlen(argv[0])))
 		ft_error("fuck", 2);
-	shell(env);
+	shell_t(env);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/24 09:33:57 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:46:30 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_cmd
 typedef struct s_seq
 {
 	char	*seq;
+	char	**split;
 	int		fd[2];
 	int		wht_cmd;
 	int		append_flag;
@@ -152,6 +153,11 @@ void	free_cmd(t_cmd *elem, int nelem);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
 void	prompt(t_shell *shell);
+int		init_seq(t_seq *seq, char **env);
+int		pipe_split(t_shell *shell, char *in);
+int		is_whspace(char *s, int dir);
+int		quote_check(int pos, char c, char *in);
+int		cmd_split(char *s, t_seq *seq);
 
 /*
 **TESTING (to be removed)
