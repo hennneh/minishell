@@ -6,11 +6,11 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 13:20:08 by kchaniot          #+#    #+#             */
-/*   Updated: 2022/02/01 19:43:08 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 20:47:20 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "../minishell.h"
 
 char	*check_if_in_env(char *s, t_shell *sh)
 {

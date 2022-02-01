@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 19:44:58 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:15:34 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid
 	while (sp[i])
 	{
 		if (sp[i][0] == '<')
-		{
-			if (!access(trim_whitespace(ft_strtrim(sp[i], "<"), 1), F_OK))
-				seq->fd[0] = open(trim_whitespace(ft_strtrim(sp[i], "<"), 1), O_RDONLY, 0777);
+		{printf("[%s]\n", trim_whitespace(ft_strtrim(sp[i], "<"), 2));
+			if (!access(trim_whitespace(ft_strtrim(sp[i], "<"), 2), F_OK))
+				seq->fd[0] = open(trim_whitespace(ft_strtrim(sp[i], "<"), 2), O_RDONLY, 0777);
 			else
 				return (1);
 		}
 		else if (sp[i][0] == '>')
 		{
-			seq->fd[1] = open(trim_whitespace(ft_strtrim(sp[i], ">"), 1), O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			seq->fd[1] = open(trim_whitespace(ft_strtrim(sp[i], ">"), 2), O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		i ++;
 	}
@@ -79,7 +79,6 @@ int	init_seq(t_seq *seq, char **env)
 {
 	seq->fd[0] = STDIN_FILENO;
 	seq->fd[1] = STDOUT_FILENO;
-	
 	printf("init_done\n");
 	seq->wht_cmd = 0;
 	if (cmd_split(seq->seq, seq))
@@ -87,12 +86,21 @@ int	init_seq(t_seq *seq, char **env)
 		ft_error("SPLIT ERROR", STDERR_FILENO);
 		return (1);
 	}
-	if (init_fd(seq, seq->seq))
+	for(int i = 0; seq->split[i]; i ++)
+		printf("[%d] : [%s]\n", i , seq->split[i]);
+	printf("done cmd split\n");
+	if (init_fd(seq, seq->split))
 	{
 		ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
 		return (1);
 	}
-	
+	printf("done fd \n");
+	if (init_cmd(seq, ft_path(env)))
+	{
+		ft_error("CMD ERROR", STDERR_FILENO);
+		return (1);
+	}
+	printf("done init seq\n");
 	return (0);
 }
 
