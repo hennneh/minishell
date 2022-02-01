@@ -18,7 +18,7 @@ int		shell(char **env)
 {
 	t_shell	s;
 
-	create_env(env, &s); // changed by Hamdrik
+	s.env = create_env(env, &s); // changed by Hamdrik
 	//prompt(s);
 //	s.pwd = get_pwd(); // Hendrik
 	while (1)
