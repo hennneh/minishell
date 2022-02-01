@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 13:17:06 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/19 16:34:21 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 21:16:21 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*trim_whitespace(char *s, int dir)
 	else
 		pos1 = 0;
 	if (dir == -1)
-		pos2 = is_whspace(s, -1) + 1;
+		pos2 = is_whspace(s, -1) - 1;
 	else
 		pos2 = ft_strlen(s);
 	if (pos2 <= pos1)

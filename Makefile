@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
+#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/02/01 20:08:36 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/02/01 20:47:08 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,21 +17,19 @@ LFT = ./libft/
 SRC =	main.c \
 		util/henne/path.c \
 		util/henne/cmd.c \
-		util/henne/prompt.c \
 		util/henne/pwd.c \
-		util/path.c \
-		util/cmd.c \
 		util/whitespace.c \
+		util/doller.c \
 		util/input_handling/find_limitor.c \
 		util/input_handling/input_parsing.c \
 		util/input_handling/pipe_split.c \
 		util/input_handling/cmd_split.c \
-		util/envy/unset.c \
+		#util/envy/unset.c \
 		util/envy/utils.c \
 		util/envy/export.c \
 		util/envy/env.c \
 		util/envy/input_reshuffle.c \
-		util/envy/re_envent.c
+		util/envy/re_envent.c#
 
 CC = gcc
 

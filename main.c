@@ -18,9 +18,9 @@ int		shell(char **env)
 {
 	t_shell	s;
 
-	s.env = create_env(env, &s); // changed by Hamdrik
+	s.env = env;//create_env(env, &s); // changed by Hamdrik
 	//prompt(s);
-	s.pwd = get_pwd(); // Hendrik
+	s.pwd = "GIMMY SOMETHING >";//get_cwd(); // Hendrik
 	while (1)
 	{
 		dup2(0, STDIN_FILENO);
@@ -49,6 +49,7 @@ int		shell(char **env)
 				else
 					waitpid(pid, NULL, 0);
 				i ++;
+				printf("done %d\n", i);
 			}
 		}
 		// 	s.his = add_input_his(s.input, s.his); // Hendrik

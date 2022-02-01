@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 20:16:04 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 20:47:48 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);
 int		cmd_split(char *s, t_seq *seq);
+char	*trim_whitespace(char *s, int dir);
+
+char	*replace_vars(t_shell *sh);
+int		check_quotes(char *s);
+int		dollar(char *s, char *buf, int *j, t_shell *sh);
 
 /*
 **TESTING (to be removed)
