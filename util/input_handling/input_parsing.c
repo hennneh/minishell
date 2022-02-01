@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/28 16:40:09 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:28:43 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,22 @@ int	init_seq(t_seq *seq, char **env)
 	
 	printf("init_done\n");
 	seq->wht_cmd = 0;
-	if (init_cmd(seq, ft_path(env)) == 1)
+	if (cmd_split(seq->seq, seq))
 	{
-		ft_error("Incorrect cmd", STDERR_FILENO); //ERROR
+		ft_error("SPLIT ERROR", STDERR_FILENO);
 		return (1);
 	}
-	if (init_fd(seq, seq->seq, 0) || init_fd(seq, seq->seq, 1))
-	{
-		ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
-		return (1);
-	}
+	env = NULL;
+	// if (init_cmd(seq, ft_path(env)) == 1)
+	// {
+	// 	ft_error("Incorrect cmd", STDERR_FILENO); //ERROR
+	// 	return (1);
+	// }
+	// if (init_fd(seq, seq->seq, 0) || init_fd(seq, seq->seq, 1))
+	// {
+	// 	ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
+	// 	return (1);
+	// }
 	return (0);
 }
 
@@ -127,12 +133,13 @@ int	shell_t(char **env)
 			printf("init seq done\n");
 			dup2(s.seq[i]->fd[0], STDIN_FILENO);
 			dup2(s.seq[i]->fd[1], STDOUT_FILENO);
-			printf("path cmd = %s\n", s.seq[i]->cmd.path_cmd);// SEG fault
-			int pid = fork();
-			if (!pid)
-				execve(s.seq[i]->cmd.path_cmd, s.seq[i]->cmd.cmd_args, env);
-			else 
-				waitpid(pid, NULL, 0);
+			for (int x = 0; s.seq[i]->split[x]; x++)
+				printf("path cmd = %s\n", s.seq[i]->split[x]);// SEG fault
+			// int pid = fork();
+			// if (!pid)
+			// 	execve(s.seq[i]->cmd.path_cmd, s.seq[i]->cmd.cmd_args, env);
+			// else 
+			// 	waitpid(pid, NULL, 0);
 			i ++;
 			write(1, "DONE\n", 5);
 		}

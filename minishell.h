@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/28 17:02:49 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:23:44 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_cmd
 typedef struct s_seq
 {
 	char	*seq;
+	char	**split;
 	int		fd[2];
 	int		wht_cmd;
 	int		append_flag;
@@ -142,6 +143,7 @@ int		init_seq(t_seq *seq, char **env);
 int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);
+int		cmd_split(char *s, t_seq *seq);
 
 /*
 **TESTING (to be removed)

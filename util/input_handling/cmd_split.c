@@ -6,16 +6,19 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:40:38 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/28 18:23:25 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:36:43 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
+
 int	is_split(char c)
 {
-	if(c == '\'' || c == '\"')
+	if (c == '\'' || c == '\"')
 		return (1);
 	else if ((c >= 9 && c <= 13) || c == 32)
+		return (1);
+	else if (c == '<' || c == '>')
 		return (1);
 	return (0);
 }
@@ -27,37 +30,38 @@ int	count_split(char *s)
 
 	count = 1;
 	i = is_whspace(s, 1);
-	while (s[i])
+	while (s[i] && i < 50)
 	{
 		if (s[i] == '\'' || s[i] == '\'')
 		{
 			i = quote_check(i + 1, s[i], s);
 			count ++;
 		}
-		else if (is_split(s[i]) && is_split(s[i + 1]) && s[i + 1])
-			count ++;
 		else if (s[i] == '<' || s[i] == '>')
 		{
+			while (s[i + 1] == '<' || s[i + 1] == '>')
+				i ++;
 			count ++;
-			return (count);
+			i += is_whspace(&s[i + 1], 1);
 		}
+		else if (is_split(s[i]) && !is_split(s[i + 1]) && s[i + 1])
+			count ++;
 		i ++;
 	}
 	return (count);
 }
 
-int	cmd_split(char *s, t_cmd *cmd)
+int	cmd_split(char *s, t_seq *seq)
 {
 	int	pos1;
 	int	pos2;
 	int	n_args;
 
-	cmd->cmd_args = ft_calloc(count_split(s) + 1, sizeof(char *));
-	if (!cmd->cmd_args)
+	seq->split = ft_calloc(count_split(s) + 1, sizeof(char *));
+	if (!seq->split)
 		return (1);
 	pos1 = 0;
 	n_args = 0;
-	printf("[%d]\n", count_split(s));
 	while (n_args < count_split(s))
 	{
 		while ((s[pos1] >= 9 && s[pos1] <= 13) || s[pos1] == 32)
@@ -67,30 +71,32 @@ int	cmd_split(char *s, t_cmd *cmd)
 		else
 		{
 			pos2 = pos1;
-			while (!((s[pos1] >= 9 && s[pos1] <= 13) || s[pos1] == 32) && !(s[pos1] == '\'' || s[pos1] == '\"'))
+			if (s[pos2] == '<' || s[pos2] == '>')
+				pos2 += is_whspace(&s[pos2 + 1], 1) + 1;
+			while (!is_split(s[pos2]) && !(s[pos2] == '<' || s[pos2] == '>'))
 				pos2 ++;
+			if (s[pos2] == '<' || s[pos2] == '>' || s[pos2] == '\'' || s[pos2] == '\"')
+				pos2 --;
 		}
-		cmd->cmd_args[n_args] = ft_substr(s, pos1, pos2 + 1 - pos1);
-		printf("[%d] : [%s]\n", n_args, cmd->cmd_args[n_args]);
+		seq->split[n_args] = ft_substr(s, pos1, pos2 + 1 - pos1);
 		n_args ++;
-		pos1 = pos2;
+		pos1 = pos2 + 1;
 	}
-	printf("done split\n");
 	return (0);
 }
 
-int	main(int argc, char **argv)
+/*int	main(int argc, char **argv)
 {
 	argc ++;
-	t_cmd *cmd;
+	t_seq *seq;
 	int i = 0;
 	printf("\n\nSTART\n\n");
-	cmd = malloc(1 * sizeof(t_cmd));
-	cmd_split(argv[1], cmd);
-	while (cmd->cmd_args[i])
+	seq = malloc(1 * sizeof(t_seq));
+	cmd_split(argv[1], seq);
+	while (seq->split[i])
 	{
-		printf("[%d] : %s\n", i, cmd->cmd_args[i]);
+		printf("[%d] : [%s]\n", i, seq->split[i]);
 		i ++;
 	}
 	return (0);
-}
+}*/
