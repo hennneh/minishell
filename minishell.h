@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 20:13:00 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 20:14:14 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,6 @@ typedef struct s_shell
 **path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
 */
 
-typedef struct s_cmd
-{
-	char	*path_cmd;
-	char	**cmd_args;
-}	t_cmd;
-
 /*
 **seq == line after being devided by pipes; fd == contains input and output fd;
 **append_flag == if it needs to be appended; wht_cmd == 0 if shell cmd, + if ours
@@ -89,6 +83,8 @@ typedef struct s_seq
 {
 	char	*seq;
 	char	**split;
+	char	*path_cmd;
+	char	**cmd_args;
 	int		fd[2];
 	int		wht_cmd;
 	int		append_flag;
