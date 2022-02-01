@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 13:20:08 by kchaniot          #+#    #+#             */
-/*   Updated: 2022/02/01 18:57:08 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 19:43:08 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ char	*replace_vars(t_shell *sh)
 			buf[j++] = s[i++];
 	}
 	free(s);
-	printf("Final: %s", buf);
+	sh->input = buf;
 	return (buf);
 }
 

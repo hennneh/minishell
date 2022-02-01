@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 15:28:12 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/01 20:13:00 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ typedef struct s_cmd
 /*
 **seq == line after being devided by pipes; fd == contains input and output fd;
 **append_flag == if it needs to be appended; wht_cmd == 0 if shell cmd, + if ours
-
 */
 
 typedef struct s_seq
@@ -147,6 +146,10 @@ int		ms_export(t_seq *q, t_shell *s);
 int		ms_unset(t_seq *q, t_shell *s);
 //	a function to extract the value of an environmental variable
 char	*ms_getenv(char *key, t_shell *s);
+//	convert the environment into an char** again for some execve functions
+char	**re_envent(t_list *env);
+//	free a given double pointerd char
+void	free_dbchar(char **frei);
 
 /*
 **	MAIN

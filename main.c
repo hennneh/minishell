@@ -20,12 +20,37 @@ int		shell(char **env)
 
 	s.env = create_env(env, &s); // changed by Hamdrik
 	//prompt(s);
-//	s.pwd = get_pwd(); // Hendrik
+	s.pwd = get_pwd(); // Hendrik
 	while (1)
 	{
-		// s.input = readline(s.pwd);
-		// if (s.input)
-		// {
+		dup2(0, STDIN_FILENO);
+		dup2(1, STDOUT_FILENO);
+		s.input = readline(s.pwd);
+		if (s.input)
+		{
+			if (check_quotes(s.input))
+				ft_error("unequal nmbr of quotes\n", STDERR_FILENO);
+			if (ft_strchr(s.input, '$'))
+				replace_vars(&s);
+			add_history(s.input);
+			if (!ft_strncmp(s.input, "EXIT", 4))
+				exit(0);
+			s.n_cmds = 0;
+			int i = 0;
+			pipe_split(&s, s.input);
+			while (i < s.n_cmds)
+			{
+				init_seq(s.seq[i], s.env);
+				dup2(s.seq[i]->fd[0], STDIN_FILENO);
+				dup2(s.seq[i]->fd[1], STDOUT_FILENO);
+				int pid = fork();
+				if (!pid)
+					execve(s.seq[i]->path_cmd, s.seq[i]->cmd_args, env);
+				else
+					waitpid(pid, NULL, 0);
+				i ++;
+			}
+		}
 		// 	s.his = add_input_his(s.input, s.his); // Hendrik
 		// 	read_input(s.input, s.seq, s); // Vincent
 		// 	analyse_inputs(s.seq); // Vincent
@@ -42,6 +67,6 @@ int	main(int argc, char **argv, char **env)
 {
 	if (argc != 1 && strncmp(argv[0], "./minishell", strlen(argv[0])))
 		ft_error("fuck", 2);
-	shell_t(env);
+	shell(env);
 	return (0);
 }
