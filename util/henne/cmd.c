@@ -6,28 +6,38 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:47:08 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/21 09:21:57 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/02/01 20:10:44 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-/*
-**
-*/
+int	count_args(char **s)
+{
+	int	count;
+	int	i;
 
-void	free_cmd(t_cmd *elem, int nelem)
+	count = 1;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i][0] != '<' || s[i][0] != '>')
+			count ++;
+		i ++;
+	}
+	return (count);
+}
+
+char	**arg_parsing(char **s)
 {
 	int		i;
+	char	**cmd_arg;
 
+	cmd_arg = ft_calloc(count_args(s) + 1, sizeof (char *));
 	i = 0;
-	while (i <= nelem)
+	while (i < count_args(s))
 	{
-		if (elem[i].cmd_args)
-			free_2dstr(elem[i].cmd_args);
-		if (elem[i].path_cmd)
-			free(elem[i].path_cmd);
-		i ++;
+		
 	}
 }
 
@@ -35,21 +45,21 @@ void	free_cmd(t_cmd *elem, int nelem)
 **Make a new element of t_cmd type
 */
 
-int	cmd_new(t_cmd *new, t_seq *s, char **path)
+int	cmd_new(t_seq *s, char **path)// need to take out quotes and spaces 
 {
-	new->cmd_args = ft_split(ft_substr(s->seq, 0, ft_strlen(s->seq) - ft_strlen(find_limitor(s->seq))), ' ');
-	if (new->cmd_args == 0)
+	s->cmd_args = arg_parsing(s->split);
+	if (s->cmd_args == 0)
 		return (1);
-	printf("cmd_args = %s\n", new->cmd_args[0]);
+	printf("cmd_args = %s\n", s->cmd_args[0]);
 	if (s->wht_cmd > 0)
-		new->path_cmd = NULL;
+		s->path_cmd = NULL;
 	else
 	{
-		new->path_cmd = ft_get_path(path, new->cmd_args);
-		if (new->path_cmd == 0)
+		s->path_cmd = ft_get_path(path, s->cmd_args);
+		if (s->path_cmd == 0)
 			return (1);
 	}
-	printf("path_cmd = %s\n", new->path_cmd);
+	printf("path_cmd = %s\n", s->path_cmd);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 14:28:43 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 19:44:58 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,42 +45,33 @@ int	init_cmd(t_seq *seq, char **path)// dont have CTRL, still need argument pars
 		seq->wht_cmd = 8;
 	else if (ft_strnstr(seq->seq, "$?", 2))
 		seq->wht_cmd = 9;
-	return (cmd_new(&seq->cmd, seq, path));
+	return (cmd_new(seq, path));
 }
 
 /*
 **init_fd finds if there is a input or output file for the cmd
 */
 
-int	init_fd(t_seq *seq, char *line, int fd) //doesnt account for if things are in quotes
+int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid // also need to do some closing
 {
-	char	*s;
-	char	c;
+	int	i;
 
-	if (fd == 0)
-		c = '<';
-	else
-		c = '>';
-	s = ft_strchr(line, c);
-	while (s)
+	i = 0;
+	while (sp[i])
 	{
-		if (*s + 1 != c)
+		if (sp[i][0] == '<')
 		{
-			if (fd == 0 && !access(ft_strtrim(ft_substr(s + 1, 0, ft_strlen(s + 1) - ft_strlen(find_limitor(s + 1))), " "), F_OK))
-				seq->fd[fd] = open(ft_strtrim(ft_substr(s + 1, 0, ft_strlen(s + 1) - ft_strlen(find_limitor(s + 1))), " "), O_RDONLY, 0777);
-			if (fd == 1)
-				seq->fd[fd] = open(ft_strtrim(ft_substr(s + 1, 0, ft_strlen(s + 1) - ft_strlen(find_limitor(s + 1))), " "), O_WRONLY | O_CREAT | O_TRUNC, 0777);
-			if (seq->fd[fd] < 0)
-				return (1);
-			if(access(ft_strtrim(ft_substr(s + 1, 0, ft_strlen(s + 1) - ft_strlen(find_limitor(s + 1))), " "), F_OK))
+			if (!access(trim_whitespace(ft_strtrim(sp[i], "<"), 1), F_OK))
+				seq->fd[0] = open(trim_whitespace(ft_strtrim(sp[i], "<"), 1), O_RDONLY, 0777);
+			else
 				return (1);
 		}
-		if (*s + 1 == c)
-			s ++;
-		s = ft_strchr(s + 1, c);
+		else if (sp[i][0] == '>')
+		{
+			seq->fd[1] = open(trim_whitespace(ft_strtrim(sp[i], ">"), 1), O_WRONLY | O_CREAT | O_TRUNC, 0777);
+		}
+		i ++;
 	}
-	if (s)
-		free(s);
 	return (0);
 }
 
@@ -96,21 +87,16 @@ int	init_seq(t_seq *seq, char **env)
 		ft_error("SPLIT ERROR", STDERR_FILENO);
 		return (1);
 	}
-	env = NULL;
-	// if (init_cmd(seq, ft_path(env)) == 1)
-	// {
-	// 	ft_error("Incorrect cmd", STDERR_FILENO); //ERROR
-	// 	return (1);
-	// }
-	// if (init_fd(seq, seq->seq, 0) || init_fd(seq, seq->seq, 1))
-	// {
-	// 	ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
-	// 	return (1);
-	// }
+	if (init_fd(seq, seq->seq))
+	{
+		ft_error("Error accessing the input or output files", STDERR_FILENO); //ERROR
+		return (1);
+	}
+	
 	return (0);
 }
 
-int	shell_t(char **env)
+/*int	shell_t(char **env)
 {
 	t_shell s;
 
@@ -146,4 +132,4 @@ int	shell_t(char **env)
 	}
 	printf("done shell\n");
 	return (0);
-}
+}*/

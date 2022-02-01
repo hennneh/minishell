@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 15:28:12 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/01 20:16:04 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,29 +74,23 @@ typedef struct s_shell
 **path_cmd == exe path and cmd; cmd_arg == argumants for the cmd;
 */
 
-typedef struct s_cmd
-{
-	char	*path_cmd;
-	char	**cmd_args;
-}	t_cmd;
-
 /*
 **seq == line after being devided by pipes; fd == contains input and output fd;
 **append_flag == if it needs to be appended; wht_cmd == 0 if shell cmd, + if ours
-
 */
 
 typedef struct s_seq
 {
 	char	*seq;
 	char	**split;
+	char	*path_cmd;
+	char	**cmd_args;
 	int		fd[2];
 	int		wht_cmd;
 	int		append_flag;
 	int		create_flag;
 	int		here_doc_flag;
 	int		input_red_flag;
-	t_cmd	cmd;
 }	t_seq;
 
 /*
@@ -147,6 +141,10 @@ int		ms_export(t_seq *q, t_shell *s);
 int		ms_unset(t_seq *q, t_shell *s);
 //	a function to extract the value of an environmental variable
 char	*ms_getenv(char *key, t_shell *s);
+//	convert the environment into an char** again for some execve functions
+char	**re_envent(t_list *env);
+//	free a given double pointerd char
+void	free_dbchar(char **frei);
 
 /*
 **	MAIN
@@ -160,8 +158,7 @@ int		shell(char **env);
 
 char	**ft_path(char **env);
 char	*ft_get_path(char **path, char **cmd);
-int		cmd_new(t_cmd *new, t_seq *s, char **path);
-void	free_cmd(t_cmd *elem, int nelem);
+int		cmd_new(t_seq *s, char **path);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
 void	prompt(t_shell *shell);
