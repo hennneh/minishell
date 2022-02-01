@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/28 17:02:49 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/01 14:46:30 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 */
 
 # define PIPE '|'
+
+int	g_return;
 
 /*
 **	STRUCTS
@@ -87,6 +89,7 @@ typedef struct s_cmd
 typedef struct s_seq
 {
 	char	*seq;
+	char	**split;
 	int		fd[2];
 	int		wht_cmd;
 	int		append_flag;
@@ -104,14 +107,25 @@ typedef struct s_seq
 	Environment
 */
 
+//	detect quotes and variableFlags
+char	*inserter(char *org, t_shell *s);
+//	find the correct value of a variable
+char	*varfinder(char *org, int i, t_shell *s);
+//	insert a string at a position in another string, replacing the <key>
+char	*insert_string(char *line, char *add, int pos, int skipc);
+
 //	create a copy of the maingiven environmemt; store it in the t_shell
-int	create_env(char **sysenv, t_shell *s);
+int		create_env(char **sysenv, t_shell *s);
 //	return the number of char* in a char**
-int	outerlen(char **list);
+int		outerlen(char **list);
 //	check if a <key> (char*) is found in a char** and if return its position (else - 1)
-int	keyfinder(char *key, int keylen, char **list);
+int		keyfinder(char *key, int keylen, char **list);
+//	return the length of a variable key
+int		keylen(char *inp);
 //	check that the <key> isalphanumerical
-int	key_error(char *input);
+int		key_error(char *input);
+//	display the env in the shell !not the builtinfunction!!!!!
+void	disp_env(t_shell *s);
 
 //	display all environmental variables which have values
 void	ms_env(t_seq *q, t_shell *s);
@@ -138,10 +152,12 @@ int		cmd_new(t_cmd *new, t_seq *s, char **path);
 void	free_cmd(t_cmd *elem, int nelem);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
+void	prompt(t_shell *shell);
 int		init_seq(t_seq *seq, char **env);
 int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);
+int		cmd_split(char *s, t_seq *seq);
 
 /*
 **TESTING (to be removed)

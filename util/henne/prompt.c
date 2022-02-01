@@ -6,38 +6,39 @@
 /*   By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 07:53:13 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/18 07:54:55 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/01/28 13:19:49 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "mini_shell.h"
+#include "../../minishell.h"
 
-char *get_user(t_shell *shell)
+char	*prompt(void)
 {
-
-}
-
-char *get_last_dir(t_shell *shell)
-{
-
-}
-
-char *ft_join_shell(char *user, char *path)
-{
-
-}
-
-char *prompt(t_shell *shell)
-{
-	char	*user;
 	char	*prompt;
-	char	*path;
+	char	*dir;
+	char	*check;
 
-	user = get_user(shell);
-	if (!user)
-		return (0);
-	ft_getcwd(shell);
-	path = get_last_dir(shell);
-	prompt = ft_join_shell(user, path);
-	return (prompt);
+	dir = malloc(sizeof(char) * 1024);
+	check = NULL;
+	check = getcwd(dir, 1124);
+	if (!check)
+		return (NULL);
+	check = ft_strrchr(dir, '/');
+	check++;
+	prompt = ft_strjoin("\033[1;32mminishell: \033[0m", check);
+	free(dir);
+	dir = ft_strjoin(prompt, " $ ");
+	free(prompt);
+	return (dir);
 }
+/*
+int	main(int argc, char **argv, char **env)
+{
+	if (argc!= 1 && strncmp(argv[0], "./minishell", strlen(argv[0])))
+		write(1, "\n", 1);
+	char *c = prompt();
+	printf("%s\n", c);
+	free(c);
+	return (0);
+}
+*/
