@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:54:43 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/01/18 17:05:00 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/01/27 23:25:48 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	keyfinder(char *key, int keylen, char **list)
 }
 
 //	check if the givien variable key complys to the char norms
+//	fist char is	alpha or _
+//	rest of key is	apphaNum or _
 int	key_error(char *input)
 {
 	int	i;
