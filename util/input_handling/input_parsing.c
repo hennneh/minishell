@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 21:15:34 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:55:09 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid
 	return (0);
 }
 
-int	init_seq(t_seq *seq, char **env)
+int	init_seq(t_seq *seq, t_list *env)
 {
 	seq->fd[0] = STDIN_FILENO;
 	seq->fd[1] = STDOUT_FILENO;
@@ -95,7 +95,7 @@ int	init_seq(t_seq *seq, char **env)
 		return (1);
 	}
 	printf("done fd \n");
-	if (init_cmd(seq, ft_path(env)))
+	if (init_cmd(seq, ft_path(msh_getenv(env, "PATH"))))
 	{
 		ft_error("CMD ERROR", STDERR_FILENO);
 		return (1);
