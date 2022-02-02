@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doller.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/22 13:20:08 by kchaniot          #+#    #+#             */
-/*   Updated: 2022/02/01 20:47:20 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:17:10 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 char	*check_if_in_env(char *s, t_shell *sh)
 {
 	int		i;
-	int		len;
 	char	*ret;
-	char	**en;
+	t_envar	*en;
 
 	ret = NULL;
 	i = 0;
-	len = ft_strlen(s);
-	en = sh->env;
-	while (en[i] != NULL)
+	en = msh_getenv(sh->env, s);
+	if (en)
 	{
-		if (!ft_strncmp(s, en[i], len) && en[i][len] == '=')
-			ret = ft_substr(en[i], len + 1, (ft_strlen(en[i]) - len));
-		i++;
+		if (en->value)
+			ret = ft_strdup(en->value);
+		else
+			ret = ft_strdup("");
 	}
 	return (ret);
 }
