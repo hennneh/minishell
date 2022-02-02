@@ -25,7 +25,7 @@ int		shell(char **env)
 	{
 		dup2(0, STDIN_FILENO);
 		dup2(1, STDOUT_FILENO);
-		s.input = readline(s.pwd);
+		s.input = readline(prompt());
 		if (s.input)
 		{
 			if (check_quotes(s.input))

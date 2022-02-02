@@ -6,7 +6,7 @@
 #    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/02/01 20:47:08 by vheymans         ###   ########.fr        #
+#    Updated: 2022/02/02 12:31:43 by hlehmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC =	main.c \
 		util/henne/path.c \
 		util/henne/cmd.c \
 		util/henne/pwd.c \
+		util/henne/prompt.c \
 		util/whitespace.c \
 		util/doller.c \
 		util/input_handling/find_limitor.c \
