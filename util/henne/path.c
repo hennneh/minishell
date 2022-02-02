@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:41:05 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/21 09:22:10 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:56:48 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,11 @@ char	*ft_get_path(char **path, char **cmd)
 **Creates the 2d array containing all the possible paths
 */
 
-char	**ft_path(char **env)
+char	**ft_path(t_envar *evar)
 {
-	int		x;
 	char	**path;
 
-	x = 0;
-	path = NULL;
-	while (env[x])
-	{
-		if (ft_strnstr(env[x], "PATH=", 5))
-		{
-			path = ft_split(ft_strnstr(env[x], "PATH=", 5), ':');
-			break ;
-		}
-		x ++;
-	}
+	path = ft_split(evar->value, ':');
 	if (!path)
 		return (NULL);
 	ft_add_slash(path);

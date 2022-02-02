@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
+#    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/02/02 12:31:43 by hlehmann         ###   ########.fr        #
+#    Updated: 2022/02/02 16:59:37 by cdahlhof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,12 +25,8 @@ SRC =	main.c \
 		util/input_handling/input_parsing.c \
 		util/input_handling/pipe_split.c \
 		util/input_handling/cmd_split.c \
-		#util/envy/unset.c \
-		util/envy/utils.c \
-		util/envy/export.c \
 		util/envy/env.c \
-		util/envy/input_reshuffle.c \
-		util/envy/re_envent.c#
+		util/envy/re_envent.c
 
 CC = gcc
 
