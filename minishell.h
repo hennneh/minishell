@@ -6,12 +6,18 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/02 17:06:27 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:08:23 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+/*
+ * DEFINES
+ */
+
+# define MAX_PATH 1024
 
 /*
 **	LIBRARY
@@ -158,6 +164,7 @@ int		cmd_new(t_seq *s, char **path);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
 char	*prompt(void);
+int		pwd(void);
 int		init_seq(t_seq *seq, t_list *env);
 int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);

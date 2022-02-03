@@ -6,28 +6,44 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 13:44:04 by hlehmann          #+#    #+#             */
-/*   Updated: 2022/01/21 09:22:38 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:01:14 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-void	ft_getcwd(t_shell *shell);
+int	pwd(void)
+{
+	char	path[MAX_PATH];
+	char	*check;
+
+	check = NULL;
+	check = getcwd(path, MAX_PATH);
+	if (!check)
+		return (1);
+	printf("%s\n", path);
+	return (0);
+}
+
+
+//OLD CODE 
+
+//void	ft_getcwd(t_shell *shell);
 
 /*
  * updating current working directory and printing it
  */
-
+/*
 void	pwd(t_shell *shell)
 {
 	ft_getcwd(shell);
 	printf("%s\n", shell->pwd);
 }
-
+*/
 /*
  * allocating memory for the path and setting shell->pwd to new path with getcwd
  */
-
+/*
 void	ft_getcwd(t_shell *shell)
 {
 	char	*dir;
@@ -49,7 +65,7 @@ void	ft_getcwd(t_shell *shell)
 		free(shell->pwd);
 	shell->pwd = dir;
 }
-
+*/
 // /*
 //  * main for testing purposes
 //  */
