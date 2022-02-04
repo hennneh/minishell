@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 16:40:38 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 14:36:43 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/04 14:43:10 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	count_split(char *s)
 
 	count = 1;
 	i = is_whspace(s, 1);
-	while (s[i] && i < 50)
+	while (s[i])
 	{
-		if (s[i] == '\'' || s[i] == '\'')
+		if (s[i] == '\"' || s[i] == '\'')
 		{
-			i = quote_check(i + 1, s[i], s);
+			i = quote_check(i, s[i], s);
 			count ++;
 		}
 		else if (s[i] == '<' || s[i] == '>')
@@ -67,7 +67,7 @@ int	cmd_split(char *s, t_seq *seq)
 		while ((s[pos1] >= 9 && s[pos1] <= 13) || s[pos1] == 32)
 			pos1++;
 		if (s[pos1] == '\'' || s[pos1] == '\"')
-			pos2 = quote_check(pos1 + 1, s[pos1], s);
+			pos2 = quote_check(pos1, s[pos1], s);
 		else
 		{
 			pos2 = pos1;

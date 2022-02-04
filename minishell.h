@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/03 08:08:23 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/02/04 18:28:14 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,7 @@ int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);
 int		cmd_split(char *s, t_seq *seq);
+int		ms_cmd_split(char *s, t_seq *seq, int pos1, int n_args);
 char	*trim_whitespace(char *s, int dir);
 
 char	*replace_vars(t_shell *sh);

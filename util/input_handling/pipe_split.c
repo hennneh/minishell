@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/01/28 16:20:54 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/04 17:43:51 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,22 @@
 **0 = outside of quotes; 1 == ""; 2 = '';
 */
 
-int		quote_check(int pos, char c, char *in)
+int	quote_check(int pos, char c, char *in)
 {
-	while (in[pos] && in[pos] != c)
+	while (in[pos] == c)
 	{
-		pos++;
+		pos ++;
+		while (in[pos] && in[pos] != c)
+		{
+			pos++;
+		}
+		if (in[pos + 1] == '\"' || in[pos + 1] == '\'')
+		{
+			c = in[pos + 1];
+			pos ++;
+		}
+		else
+			break ;
 	}
 	return (pos);
 }
@@ -85,7 +96,7 @@ int		pipe_split(t_shell *shell, char *in)
 		while(in[pos2] && in[pos2] != PIPE)
 		{
 			if (in[pos2] == 34 || in[pos2] == '\'')
-				pos2 = quote_check(pos2 + 1, in[pos2], in);
+				pos2 = quote_check(pos2, in[pos2], in);
 			pos2 ++;
 		}
 		if (!in[pos2] || in[pos2 + 1] != PIPE)

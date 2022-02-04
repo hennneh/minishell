@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/02 16:55:09 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/04 18:27:48 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	init_seq(t_seq *seq, t_list *env)
 	seq->fd[1] = STDOUT_FILENO;
 	printf("init_done\n");
 	seq->wht_cmd = 0;
-	if (cmd_split(seq->seq, seq))
+	if (ms_cmd_split(seq->seq, seq, 0, 0))
 	{
 		ft_error("SPLIT ERROR", STDERR_FILENO);
 		return (1);

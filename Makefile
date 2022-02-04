@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
+#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/02/02 16:59:37 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/02/04 14:44:54 by vheymans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ SRC =	main.c \
 		util/input_handling/find_limitor.c \
 		util/input_handling/input_parsing.c \
 		util/input_handling/pipe_split.c \
-		util/input_handling/cmd_split.c \
+		util/input_handling/ms_cmd_split.c \
 		util/envy/env.c \
 		util/envy/re_envent.c
 
