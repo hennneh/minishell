@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 20:47:48 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/03 08:08:23 by hlehmann         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+/*
+ * DEFINES
+ */
+
+# define MAX_PATH 1024
 
 /*
 **	LIBRARY
@@ -62,7 +68,7 @@ typedef struct s_seq	t_seq;
 
 typedef struct s_shell
 {
-	char	**env;
+	t_list	*env;
 	t_list	*his;
 	int		n_cmds;
 	char	*pwd;
@@ -124,14 +130,10 @@ char	*insert_string(char *line, char *add, int pos, int skipc);
 int		create_env(char **sysenv, t_shell *s);
 //	return the number of char* in a char**
 int		outerlen(char **list);
-//	check if a <key> (char*) is found in a char** and if return its position (else - 1)
-int		keyfinder(char *key, int keylen, char **list);
-//	return the length of a variable key
-int		keylen(char *inp);
 //	check that the <key> isalphanumerical
 int		key_error(char *input);
 //	display the env in the shell !not the builtinfunction!!!!!
-void	disp_env(t_shell *s);
+void	disp_env(t_list *org);
 
 //	display all environmental variables which have values
 void	ms_env(t_seq *q, t_shell *s);
@@ -140,7 +142,7 @@ int		ms_export(t_seq *q, t_shell *s);
 //	remove environmental variables
 int		ms_unset(t_seq *q, t_shell *s);
 //	a function to extract the value of an environmental variable
-char	*ms_getenv(char *key, t_shell *s);
+t_envar	*msh_getenv(t_list *env, char *key);
 //	convert the environment into an char** again for some execve functions
 char	**re_envent(t_list *env);
 //	free a given double pointerd char
@@ -156,13 +158,14 @@ int		shell(char **env);
 **	UTILIES
 */
 
-char	**ft_path(char **env);
+char	**ft_path(t_envar *evar);
 char	*ft_get_path(char **path, char **cmd);
 int		cmd_new(t_seq *s, char **path);
 char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
-void	prompt(t_shell *shell);
-int		init_seq(t_seq *seq, char **env);
+char	*prompt(void);
+int		pwd(void);
+int		init_seq(t_seq *seq, t_list *env);
 int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);

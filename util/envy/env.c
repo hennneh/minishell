@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/14 17:53:05 by cdahlhof          #+#    #+#             */
-/*   Updated: 2022/02/01 13:52:03 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/02 17:09:28 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,51 @@
 		unsetting PWD or HOME switches print to	0
 		cd (if currently 0) sets HOME or PWD to	2		so that it doesn't show up in env, but can be used as a Var
 */
+
+void	delvar(void *rmv);
+
+//	return the number of lines in a list
+int	outerlen(char **list)
+{
+	int i;
+
+	i = 0;
+	while(list && list[i])
+	{
+		i++;
+	}
+	return (i);
+}
+
+//	insert a string at a position in another string, replacing the <key>
+char	*insert_string(char *line, char *add, int pos, int skipc)
+{
+	int		i;
+	char	*new;
+
+	i = 0;
+	new = calloc(ft_strlen(line) + ft_strlen(add) + 10, sizeof(char));
+	while(i < pos)
+	{
+		new[i] = line[i];
+		i++;
+	}
+	i = 0;
+	while (add && add[i])
+	{
+		new[i + pos] = add[i];
+		i++;
+	}
+	if (add[0])
+		i = pos + skipc;
+	while (line[i])
+	{
+		new[ft_strlen(new)] = line[i];
+		i++;
+	}
+	free(line);
+	return(new);
+}
 
 t_list	*new_envar(char *input, int flag)
 {
@@ -84,7 +129,7 @@ int	display_env(t_list	*env, char dev)
 		c = (t_envar *)temp->content;
 		if ((dev == 'p' || dev == 'a') && c->value && c->print == 1)
 			printf("%s=%s\n", c->key, c->value);
-		else if (dev == 'a' && c->value && c->print == 0)
+		else if (dev == 'a' && c->print != 1)
 			printf("HIDDEN	%s=%s\n", c->key, c->value);
 		temp = temp->next;
 	}
@@ -100,9 +145,9 @@ t_envar	*msh_getenv(t_list *env, char *key)
 	tmp = env;
 	while(tmp)
 	{
-		diff = ft_strncmp(key, ((t_envar *)tmp->content)->key, ft_strlen(((t_envar *)tmp->content)->key));
+		diff = ft_strncmp(key, ((t_envar *)tmp->content)->key, ft_strlen(key));
 		if (diff == 61 || diff == 0)
-			return ((t_envar *)tmp->content);
+			return ((t_envar *)(tmp->content));
 		tmp = tmp->next;
 	}
 	return (NULL);
@@ -112,11 +157,41 @@ t_envar	*msh_getenv(t_list *env, char *key)
 void	ms_env(t_seq *q, t_shell *s)
 {
 	display_env(s->env, 'p');
+	(void)q;
 }
 
 //#################################
 
 //export
+
+void	sort_list(char ***plist)
+{
+	int		i[2];
+	char	*tmp;
+	char	**list;
+
+	list = *plist;
+	i[0] = 0;
+	i[1] = 0;
+	while (i[0] < outerlen(list) && list[i[0]] && list[i[0] + 1])
+	{
+		if (list[i[0]][i[1]] == list[i[0] + 1][i[1]])
+			i[1]++;
+		else if (list[i[0]][i[1]] < list[i[0] + 1][i[1]])
+		{
+			i[0]++;
+			i[1] = 0;
+		}
+		else if (list[i[0]][i[1]] > list[i[0] + 1][i[1]])
+		{
+			tmp = list[i[0]];
+			list[i[0]] = list[i[0] + 1];
+			list[i[0] + 1] = tmp;
+			i[0] = 0;
+			i[1] = 0;
+		}
+	}
+}
 
 void	disp_env(t_list *org)
 {
@@ -145,43 +220,101 @@ void	disp_env(t_list *org)
 	}
 }
 
-t_
+int	key_error(char *input)
+{
+	int	i;
+
+	i = 0;
+	if (!ft_isalpha(input[0]) && input[i] != '_')
+		return (1);
+	while (input[i] && input[i] != '=')
+	{
+		if (!ft_isalnum(input[i]) && input[i] != '_')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+void	back_out(char ***env)
+{
+	int		i;
+	int		l;
+	char	**lst;
+
+	lst = *env;
+	l = 0;
+	while (lst[l])
+	{
+		i = 0;
+		while (lst[l][i])
+		{
+			if (lst[l][i] == '$')
+			{
+				lst[l] = insert_string(lst[l], "\\$", i, 1);
+				i++;
+			}
+			i++;
+		}
+		l++;
+	}
+}
+
+int	disp_sorted(t_list *env)
+{
+	char	**cpy;
+	int		i;
+
+	cpy = re_envent(env);
+	back_out(&cpy);
+	sort_list(&cpy);
+	i = 0;
+	while (cpy[i])
+	{
+		printf("declare -x %s\n", cpy[i]);
+		i++;
+	}
+	free_dbchar(cpy);
+	return (0);
+}
 
 int	msh_export(t_seq *q, t_shell *s)
 {
 	int		i;
-	t_list	*tmp;
-	t_envar *content;
+	t_envar	*tmp;
+	t_list	*rep;
 
-	if (!q->cmd.cmd_args[0] || q->cmd.cmd_args[0][0] == '#')
+	if (!q->cmd_args[0] || q->cmd_args[0][0] == '#')
 	{
-		// disp_sorted(s->env);
+		disp_sorted(s->env);
 		return (0);
 	}
 	i = 0;
-	while (q->cmd.cmd_args[i])
+	while (q->cmd_args[i])
 	{
-		if (key_error(q->cmd.cmd_args[i]))
-			printf("bash: export: `%s'not a valid identifier\n", q->cmd.cmd_args[i]);
+		if (key_error(q->cmd_args[i]))
+			printf("bash: export: `%s'not a valid identifier\n", q->cmd_args[i]);
 		else
 		{
-			tmp = s->env;
-			while (tmp && ft_strncmp(q->cmd.cmd_args[i], ((t_envar *)(tmp->content))->key, ft_strlen(((t_envar *)(tmp->content))->key + 1)) != 61)
-				tmp = tmp->next;
-			if (tmp)
+			rep = new_envar(q->cmd_args[i], -1);
+			tmp = msh_getenv(s->env, ((t_envar *)rep->content)->key);
+			if (tmp && ((t_envar *)rep->content)->value)
 			{
-				if (((t_envar *)(tmp->content))->value && ft_strchr(q->cmd.cmd_args[i], '='))
-					free (((t_envar *)(tmp->content))->value);
-				((t_envar *)(tmp->content))->value = ft_strdup(ft_strchr(q->cmd.cmd_args[i], '=') + 1);
+				if (tmp->value)
+					free (tmp->value);
+				tmp->value = ft_strdup(((t_envar *)rep->content)->value);
+				delvar(rep);
 			}
 			else
-			{
-				ft_lstadd_back(&s->env, new_envar(q->cmd.cmd_args[i], -1));
-			}
+				ft_lstadd_back(&s->env, rep);
 		}
 		i++;
 	}
+	return (0);
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+
 
 void	delvar(void *rmv)
 {
@@ -199,26 +332,35 @@ int	create_env(char **env, t_shell *s)
 	s->env = copy_env(env);
 	return (0);
 }
+// unset SECURITYSESSIONID LaunchInstanceID COMMAND_MODE SHELL LOGNAME TERM _ DISPLAY __CF_USER_TEXT_ENCODING XPC_SERVICE_NAME XPC_FLAGS SSH_AUTH_SOCK SHLVL TERM_PROGRAM TERM_PROGRAM_VERSION LANG COLORTERM VSCODE_GIT_IPC_HANDLE GIT_ASKPASS VSCODE_GIT_ASKPASS_NODE VSCODE_GIT_ASKPASS_MAIN
+// int	main(int argc, char **argv, char **env)
+// {
+// 	t_shell	s;
 
-int	main(int argc, char **argv, char **env)
-{
-	t_shell	s;
+// 	if (argc != 1 || argv[1])
+// 		return(2);
+// 	create_env(env, &s);
 
-	if (argc != 1 || argv[1])
-		return(2);
-	create_env(env, &s);
+// 	t_seq	*q = ft_calloc(1, sizeof(t_seq));
 
-	t_seq	*q = ft_calloc(1, sizeof(t_seq));
-
-	//	test the functionality of env
-	q->cmd.cmd_args = ft_split("lal= me=", ' ');
-	ms_env(q, &s);
-	display_env(s.env, 'a');
-	free(q->cmd.cmd_args);
-	q->cmd.cmd_args = ft_split("lal=heh lel", ' ');
-	ms_export(q, &s);
-	
-	free(q);
-	//ft_lstclear(&s.env, delvar);
-	return(0);
-}
+// 	//	test the functionality of env
+// 	q->cmd_args = ft_split("lal=CHANGEME me", ' ');
+// 	msh_export(q, &s);
+// 	display_env(s.env, 'a');
+// 	write (1, "\n\n\n", 3);
+// 	free(q->cmd_args);
+// 	q->cmd_args = ft_split("lal=heh _lel 0fef=lel edge=$$$$$ fef\"$?\"0=fe", ' ');
+// 	msh_export(q, &s);
+// 	for (int i = 0; q->cmd_args[i]; i++)
+// 		printf("exporting %s\n", q->cmd_args[i]);
+// 	write (1, "\n", 1);
+// 	display_env(s.env, 'a');
+// 	write (1, "\n\n\n", 3);
+// 	free(q->cmd_args);
+// 	q->cmd_args = ft_split("", ' ');
+// 	msh_export(q, &s);
+// 	if (q)
+// 		free(q);
+// 	//ft_lstclear(&s.env, delvar);
+// 	return(0);
+// }

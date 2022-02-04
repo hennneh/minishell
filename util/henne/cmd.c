@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:47:08 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/01 21:22:13 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/02 16:16:46 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,12 @@ int	count_args(char **s)
 	return (count);
 }
 
-char	**arg_parsing(char **s)
+int	arg_parsing(char **s, t_seq *seq)
 {
 	int		i;
 	int		x;
-	char	**cmd_arg;
 
-	cmd_arg = ft_calloc(count_args(s) + 1, sizeof (char *));
+	seq->cmd_args = ft_calloc(count_args(s) + 1, sizeof (char *));
 	i = 0;
 	x = 0;
 	printf("[%d]\n", count_args(s));
@@ -42,14 +41,16 @@ char	**arg_parsing(char **s)
 	{
 		while (s[x][0] == '<' || s[x][0] == '>')
 			x ++;
-		if (s[x][0] == '\"' || s[x][0] == '\'')
-			cmd_arg[i] = ft_strtrim(trim_whitespace(s[x], 2), "'");
+		if (s[x][0] == '\"')
+			seq->cmd_args[i] = ft_strtrim(trim_whitespace(s[x], 2), "\"");
+		else if (s[x][0] == '\'')
+			seq->cmd_args[i] = ft_strtrim(trim_whitespace(s[x], 2), "\'");
 		else
-			cmd_arg[i] = ft_strtrim(s[x], " ");
+			seq->cmd_args[i] = ft_strtrim(s[x], " ");
 		i ++;
 		x ++;
 	}
-	return (cmd_arg);
+	return (0);
 }
 
 /*
@@ -58,7 +59,7 @@ char	**arg_parsing(char **s)
 
 int	cmd_new(t_seq *s, char **path)// need to take out quotes and spaces 
 {
-	s->cmd_args = arg_parsing(s->split);
+	arg_parsing(s->split, s);
 	printf("done arg parsing\n");
 	if (s->cmd_args == 0)
 		return (1);
