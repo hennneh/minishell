@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/04 17:43:51 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/05 16:32:39 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,19 @@ int		count_pipe(char *in)// what if it ends with a pipe == missing bash cmd; tri
 {
 	int	i;
 	int	count;
-	int	flag;
 
 	i = 0;
 	count = 1;
-	flag = 0;
 	while (in[i])
 	{
 		if (in[i] == 34 || in[i] == '\'')
 			i = quote_check(i + 1, in[i], in);
 		if (in[i] == PIPE)
 		{
-			if (in[i + 1] != PIPE && flag == 0) // missing cmd after '|' error
+			if (in[i + 1] != PIPE)
 				count ++;
 			if (in[i + 1] && in[i + 1] == PIPE)
-				i ++;
+				return (-1);
 		}
 		i ++;
 	}
@@ -86,14 +84,12 @@ int		pipe_split(t_shell *shell, char *in)
 	if (shell->n_cmds < 1)
 		return (1);
 	shell->seq = malloc(shell->n_cmds * sizeof(t_seq *));
-	if (!shell->seq)
-		return (1);
 	n_pipes = 0;
 	pos1 = 0;
 	pos2 = 0;
 	while (n_pipes < shell->n_cmds)
 	{
-		while(in[pos2] && in[pos2] != PIPE)
+		while (in[pos2] && in[pos2] != PIPE)
 		{
 			if (in[pos2] == 34 || in[pos2] == '\'')
 				pos2 = quote_check(pos2, in[pos2], in);

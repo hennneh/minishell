@@ -3,18 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 14:46:33 by hlehmann          #+#    #+#             */
-/*                                                                            */                  
-/*   Updated: 2022/01/18 16:42:41 by cdahlhof         ###   ########.fr       */
-/*                                                                            */
+/*   Updated: 2022/02/05 17:13:54 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		shell(char **env)
+int	shell(char **env)
 {
 	t_shell	s;
 
@@ -23,8 +21,8 @@ int		shell(char **env)
 	s.pwd = "GIMMY SOMETHING >";//get_cwd(); // Hendrik
 	while (1)
 	{
-		dup2(0, STDIN_FILENO);
-		dup2(1, STDOUT_FILENO);
+		s.in = dup(STDIN_FILENO);
+		s.out = dup(STDOUT_FILENO);
 		s.input = readline(prompt());
 		if (s.input)
 		{
@@ -37,10 +35,11 @@ int		shell(char **env)
 				exit(0);
 			s.n_cmds = 0;
 			int i = 0;
-			pipe_split(&s, s.input);
+			if (pipe_split(&s, s.input))
+				ft_error("syntax error near unexpected token `|'", STDERR_FILENO);
 			while (i < s.n_cmds)
 			{
-				init_seq(s.seq[i], s.env);
+				init_seq(s.seq[i], s.env, &s);
 				dup2(s.seq[i]->fd[0], STDIN_FILENO);
 				dup2(s.seq[i]->fd[1], STDOUT_FILENO);
 				int pid = fork();

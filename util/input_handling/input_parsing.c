@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/04 18:27:48 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/05 17:14:36 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid
 	while (sp[i])
 	{
 		if (sp[i][0] == '<')
-		{printf("[%s]\n", trim_whitespace(ft_strtrim(sp[i], "<"), 2));
+		{
 			if (!access(trim_whitespace(ft_strtrim(sp[i], "<"), 2), F_OK))
 				seq->fd[0] = open(trim_whitespace(ft_strtrim(sp[i], "<"), 2), O_RDONLY, 0777);
 			else
@@ -75,10 +75,10 @@ int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid
 	return (0);
 }
 
-int	init_seq(t_seq *seq, t_list *env)
+int	init_seq(t_seq *seq, t_list *env, t_shell *s)
 {
-	seq->fd[0] = STDIN_FILENO;
-	seq->fd[1] = STDOUT_FILENO;
+	seq->fd[0] = s->in;
+	seq->fd[1] = s->out;
 	printf("init_done\n");
 	seq->wht_cmd = 0;
 	if (ms_cmd_split(seq->seq, seq, 0, 0))
