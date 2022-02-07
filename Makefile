@@ -6,7 +6,7 @@
 #    By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/02/02 16:59:37 by cdahlhof         ###   ########.fr        #
+#    Updated: 2022/02/04 10:34:40 by cdahlhof         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC =	main.c \
 		util/henne/path.c \
 		util/henne/cmd.c \
 		util/henne/pwd.c \
+		util/henne/signal.c \
 		util/henne/prompt.c \
 		util/whitespace.c \
 		util/doller.c \

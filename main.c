@@ -19,15 +19,18 @@ int		shell(char **env)
 	t_shell	s;
 
 	create_env(env, &s);
+	init_sig();
 	//prompt(s);
 	s.pwd = "GIMMY SOMETHING >";//get_cwd(); // Hendrik
 	while (1)
 	{
 		dup2(0, STDIN_FILENO);
 		dup2(1, STDOUT_FILENO);
+		init_sig();
 		s.input = readline(prompt());
 		if (s.input)
 		{
+			init_sig();
 			if (check_quotes(s.input))
 				ft_error("unequal nmbr of quotes\n", STDERR_FILENO);
 			if (ft_strchr(s.input, '$'))
@@ -52,6 +55,7 @@ int		shell(char **env)
 				printf("done %d\n", i);
 			}
 		}
+		init_sig();
 		// 	s.his = add_input_his(s.input, s.his); // Hendrik
 		// 	read_input(s.input, s.seq, s); // Vincent
 		// 	analyse_inputs(s.seq); // Vincent
@@ -66,6 +70,7 @@ int		shell(char **env)
 
 int	main(int argc, char **argv, char **env)
 {
+	printf("%i\n", getpid());
 	if (argc != 1 && strncmp(argv[0], "./minishell", strlen(argv[0])))
 		ft_error("fuck", 2);
 	shell(env);

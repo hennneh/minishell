@@ -6,7 +6,7 @@
 /*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/03 08:08:23 by hlehmann         ###   ########.fr       */
+/*   Updated: 2022/02/04 10:33:35 by cdahlhof         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,6 +171,8 @@ int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);
 int		cmd_split(char *s, t_seq *seq);
 char	*trim_whitespace(char *s, int dir);
+void	init_sig(void);
+void	sighandler(int sigbit, siginfo_t *info, void *context);
 
 char	*replace_vars(t_shell *sh);
 int		check_quotes(char *s);
