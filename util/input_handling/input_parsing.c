@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/05 17:14:36 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:22:06 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid
 	{
 		if (sp[i][0] == '<')
 		{
-			if (!access(trim_whitespace(ft_strtrim(sp[i], "<"), 2), F_OK))
-				seq->fd[0] = open(trim_whitespace(ft_strtrim(sp[i], "<"), 2), O_RDONLY, 0777);
+			if (!access(rmv_quotes(sp[i]), F_OK))
+				seq->fd[0] = open(rmv_quotes(sp[i]), O_RDONLY, 0777);
 			else
 				return (1);
 		}
 		else if (sp[i][0] == '>')
 		{
-			seq->fd[1] = open(trim_whitespace(ft_strtrim(sp[i], ">"), 2), O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			seq->fd[1] = open(rmv_quotes(sp[i]), O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		i ++;
 	}

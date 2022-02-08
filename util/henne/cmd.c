@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/13 17:47:08 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/02 16:16:46 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:15:22 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,7 @@ int	arg_parsing(char **s, t_seq *seq)
 	{
 		while (s[x][0] == '<' || s[x][0] == '>')
 			x ++;
-		if (s[x][0] == '\"')
-			seq->cmd_args[i] = ft_strtrim(trim_whitespace(s[x], 2), "\"");
-		else if (s[x][0] == '\'')
-			seq->cmd_args[i] = ft_strtrim(trim_whitespace(s[x], 2), "\'");
-		else
-			seq->cmd_args[i] = ft_strtrim(s[x], " ");
+		cmd_args[i] = rmv_quotes(s[x]);
 		i ++;
 		x ++;
 	}
