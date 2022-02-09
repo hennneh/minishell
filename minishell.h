@@ -175,6 +175,8 @@ int		cmd_split(char *s, t_seq *seq);
 int		ms_cmd_split(char *s, t_seq *seq, int pos1, int n_args);
 char	*trim_whitespace(char *s, int dir);
 char	*rmv_quotes(char *s);
+void	init_sig(void);
+void	sighandler(int sigbit, siginfo_t *info, void *context);
 
 char	*replace_vars(t_shell *sh);
 int		check_quotes(char *s);

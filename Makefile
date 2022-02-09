@@ -18,6 +18,7 @@ SRC =	main.c \
 		util/henne/path.c \
 		util/henne/cmd.c \
 		util/henne/pwd.c \
+		util/henne/signal.c \
 		util/henne/prompt.c \
 		util/whitespace.c \
 		util/doller.c \
