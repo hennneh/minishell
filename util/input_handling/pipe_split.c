@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 17:07:20 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/05 16:32:39 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/09 17:56:44 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	quote_check(int pos, char c, char *in)
 			c = in[pos + 1];
 			pos ++;
 		}
-		else
+		if ((in[pos] >= 9 && in[pos] <= 13) || in[pos] == 32)
 			break ;
 	}
 	return (pos);

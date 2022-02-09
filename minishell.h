@@ -6,7 +6,7 @@
 /*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/05 17:13:10 by vheymans         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:10:07 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ int		quote_check(int pos, char c, char *in);
 int		cmd_split(char *s, t_seq *seq);
 int		ms_cmd_split(char *s, t_seq *seq, int pos1, int n_args);
 char	*trim_whitespace(char *s, int dir);
+char	*rmv_quotes(char *s);
 
 char	*replace_vars(t_shell *sh);
 int		check_quotes(char *s);
