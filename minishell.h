@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 11:22:46 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/04 10:33:35 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/08 15:10:07 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ typedef struct s_shell
 	char	*pwd;
 	t_seq	**seq;
 	char	*input;
+	int		in;
+	int		out;
 }	t_shell;
 
 /*
@@ -165,12 +167,14 @@ char	*find_limitor(char *s);
 int		ft_add_slash(char **array);
 char	*prompt(void);
 int		pwd(void);
-int		init_seq(t_seq *seq, t_list *env);
+int		init_seq(t_seq *seq, t_list *env, t_shell *s);
 int		pipe_split(t_shell *shell, char *in);
 int		is_whspace(char *s, int dir);
 int		quote_check(int pos, char c, char *in);
 int		cmd_split(char *s, t_seq *seq);
+int		ms_cmd_split(char *s, t_seq *seq, int pos1, int n_args);
 char	*trim_whitespace(char *s, int dir);
+char	*rmv_quotes(char *s);
 void	init_sig(void);
 void	sighandler(int sigbit, siginfo_t *info, void *context);
 

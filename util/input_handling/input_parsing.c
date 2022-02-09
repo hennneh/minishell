@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_parsing.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cdahlhof <cdahlhof@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/07 17:18:17 by vheymans          #+#    #+#             */
-/*   Updated: 2022/02/02 16:55:09 by cdahlhof         ###   ########.fr       */
+/*   Updated: 2022/02/07 17:22:06 by vheymans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,28 +60,28 @@ int	init_fd(t_seq *seq, char **sp) //still needs an to check if the fd are valid
 	while (sp[i])
 	{
 		if (sp[i][0] == '<')
-		{printf("[%s]\n", trim_whitespace(ft_strtrim(sp[i], "<"), 2));
-			if (!access(trim_whitespace(ft_strtrim(sp[i], "<"), 2), F_OK))
-				seq->fd[0] = open(trim_whitespace(ft_strtrim(sp[i], "<"), 2), O_RDONLY, 0777);
+		{
+			if (!access(rmv_quotes(sp[i]), F_OK))
+				seq->fd[0] = open(rmv_quotes(sp[i]), O_RDONLY, 0777);
 			else
 				return (1);
 		}
 		else if (sp[i][0] == '>')
 		{
-			seq->fd[1] = open(trim_whitespace(ft_strtrim(sp[i], ">"), 2), O_WRONLY | O_CREAT | O_TRUNC, 0777);
+			seq->fd[1] = open(rmv_quotes(sp[i]), O_WRONLY | O_CREAT | O_TRUNC, 0777);
 		}
 		i ++;
 	}
 	return (0);
 }
 
-int	init_seq(t_seq *seq, t_list *env)
+int	init_seq(t_seq *seq, t_list *env, t_shell *s)
 {
-	seq->fd[0] = STDIN_FILENO;
-	seq->fd[1] = STDOUT_FILENO;
+	seq->fd[0] = s->in;
+	seq->fd[1] = s->out;
 	printf("init_done\n");
 	seq->wht_cmd = 0;
-	if (cmd_split(seq->seq, seq))
+	if (ms_cmd_split(seq->seq, seq, 0, 0))
 	{
 		ft_error("SPLIT ERROR", STDERR_FILENO);
 		return (1);
