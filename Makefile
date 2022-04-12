@@ -3,49 +3,76 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vheymans <vheymans@student.42.fr>          +#+  +:+       +#+         #
+#    By: hlehmann <hlehmann@student.42wolfsburg.de  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/01/03 14:51:46 by hlehmann          #+#    #+#              #
-#    Updated: 2022/02/08 15:09:50 by vheymans         ###   ########.fr        #
+#    Created: 2022/04/11 15:00:58 by hlehmann          #+#    #+#              #
+#    Updated: 2022/04/11 15:01:00 by hlehmann         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-
-LFT = ./libft/
-
-SRC =	main.c \
-		util/henne/path.c \
-		util/henne/cmd.c \
-		util/henne/pwd.c \
-		util/henne/signal.c \
-		util/henne/prompt.c \
-		util/whitespace.c \
-		util/doller.c \
-		util/input_handling/find_limitor.c \
-		util/input_handling/input_parsing.c \
-		util/input_handling/pipe_split.c \
-		util/input_handling/rmv_quotes.c \
-		util/input_handling/ms_cmd_split.c \
-		util/envy/env.c \
-		util/envy/re_envent.c
-
 CC = gcc
+FLAGS = -Wall -Werror -Wextra
+RM = rm -f
+LFT = ./lft
+SR = ./src/
+BI = $(SR)built-ins/
+CMI = $(SR)cmd_interpret/
+LU = $(CMI)launch/
+CL = $(CMI)clean/
+PR = $(CMI)parse/ms_
 
-CFLAGS = -Wall -Werror -Wextra -l readline
+SRC =	$(SR)main.c \
+		$(BI)cd.c \
+		$(BI)echo.c \
+		$(BI)env.c \
+		$(BI)exit.c \
+		$(BI)export.c \
+		$(BI)pwd.c \
+		$(BI)signals.c \
+		$(BI)unset.c \
+		$(PR)arg_split.c \
+		$(PR)cmd.c \
+		$(PR)parse.c \
+		$(PR)pipe_split.c \
+		$(PR)rmv_quotes.c \
+		$(PR)whitespace.c \
+		$(PR)fd.c \
+		$(CMI)ms_extract_cmd.c \
+		$(CMI)ms_launch_cmd.c \
+		$(LU)ms_exec_builtins.c \
+		$(LU)ms_pipe.c \
+		$(CMI)vars.c \
+		$(CL)ms_free_seq.c \
+		$(CL)ms_close_fd.c \
+
+OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(SRC)
-	make -C ./libft
-	$(CC) $(CFLAGS) $(SRC) $(LFT)libft.a -o $(NAME)
+	make bonus -C $(LFT)
+	$(CC) $(FLAGS) $(SRC) $(LFT)/libft.a -o $(NAME) -I $(HOME)/goinfre/.brew/opt/readline/include/ -L $(HOME)/goinfre/.brew/opt/readline/lib/ -l readline
 
 clean:
-	rm -rf $(OBJ)
+	make clean -C $(LFT)
+	$(RM) $(OBJ)
 
 fclean: clean
 	make fclean -C $(LFT)
-	rm -rf $(NAME)
+	$(RM) $(NAME)
+
+
+bonus:
+	touch ~/.bashrc
+	cp ~/.bashrc ~/.pbashrc
+	echo PS1='"''\e[95mM\e[35mi\e[31mn\e[91mi\e[93ms\e[0;32mh\e[34me\e[0;94ml\e[0;96ml \e[1;41;97mB\e[4;0;31monus \e[0;0m§ ''"' > ~/.bashrc
+	gcc $(SR)bonus.c -o minishell
+	./minishell
+	rm minishell
+	rm ~/.bashrc
+	cp ~/.pbashrc ~/.bashrc
+	rm ~/.pbashrc
 
 re: fclean all
 
